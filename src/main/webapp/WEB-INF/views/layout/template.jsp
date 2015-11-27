@@ -19,6 +19,19 @@
 	http-equiv="Content-Type"
 	content="text/html; charset=UTF-8">
 
+<link
+	href='https://fonts.googleapis.com/css?family=Jaldi:400,700'
+	rel='stylesheet'
+	type='text/css'>
+<link
+	rel="stylesheet"
+	href="resources/css/reset.css">
+<link
+	rel="stylesheet"
+	href="resources/css/style.css">
+
+<script src="resources/js/modernizr.js"></script>
+
 <title><tiles:insertAttribute
 		name="title"
 		ignore="true" /></title>
