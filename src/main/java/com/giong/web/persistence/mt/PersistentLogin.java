@@ -1,4 +1,4 @@
-package com.giong.lv.persistence.mt;
+package com.giong.web.persistence.mt;
 
 import java.sql.Timestamp;
 
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.giong.lv.persistence.AbstractEntity;
+import com.giong.web.persistence.AbstractEntity;
 
 
 /**

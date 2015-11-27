@@ -1,4 +1,4 @@
-package com.giong.lv.persistence.mt;
+package com.giong.web.persistence.mt;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.giong.lv.persistence.AbstractEntity;
+import com.giong.web.persistence.AbstractEntity;
 
 
 /**

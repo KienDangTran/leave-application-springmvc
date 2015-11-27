@@ -1,84 +1,85 @@
+<%@ taglib
+	prefix="spring"
+	uri="http://www.springframework.org/tags"%>
+
 <%@ page
 	language="java"
 	contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<spring:url
+	value="/"
+	var="dashboardUrl"
+	htmlEscape="true" />
+<spring:url
+	value="/employee"
+	var="employeeUrl"
+	htmlEscape="true" />
+
 <ul class="cd-accordion-menu animated">
+
+	<li><a href="${dashboardUrl}"><spring:message code="dashboard" /></a></li>
+
 	<li class="has-children"><input
 		type="checkbox"
-		name="group-1"
-		id="group-1"
-		checked> <label for="group-1">Group 1</label>
-
+		name="maintainance"
+		id="maintainance"><label for="maintainance"><spring:message code="maintainance_setup" /></label>
 		<ul>
 			<li class="has-children"><input
 				type="checkbox"
-				name="sub-group-1"
-				id="sub-group-1"> <label for="sub-group-1">Sub Group 1</label>
-
+				name="admin"
+				id="admin"> <label for="admin"><spring:message code="administrator" /></label>
 				<ul>
-					<li><a href="#0">Image</a></li>
-					<li><a href="#0">Image</a></li>
-					<li><a href="#0">Image</a></li>
+					<li><a href="${employeeUrl}"><spring:message code="employee" /></a></li>
 				</ul></li>
+
 			<li class="has-children"><input
 				type="checkbox"
-				name="sub-group-2"
-				id="sub-group-2"> <label for="sub-group-2">Sub Group 2</label>
-
+				name="super-admin"
+				id="super-admin"> <label for="super-admin"><spring:message code="super_administrator" /></label>
 				<ul>
-					<li class="has-children"><input
-						type="checkbox"
-						name="sub-group-level-3"
-						id="sub-group-level-3"> <label for="sub-group-level-3">Sub Group Level 3</label>
-
-						<ul>
-							<li><a href="#0">Image</a></li>
-							<li><a href="#0">Image</a></li>
-						</ul></li>
-					<li><a href="#0">Image</a></li>
+					<li><a href="#0"><spring:message code="user" /></a></li>
 				</ul></li>
-			<li><a href="#0">Image</a></li>
-			<li><a href="#0">Image</a></li>
 		</ul></li>
 
 	<li class="has-children"><input
 		type="checkbox"
-		name="group-2"
-		id="group-2"> <label for="group-2">Group 2</label>
-
-		<ul>
-			<li><a href="#0">Image</a></li>
-			<li><a href="#0">Image</a></li>
-		</ul></li>
-
-	<li class="has-children"><input
-		type="checkbox"
-		name="group-3"
-		id="group-3"> <label for="group-3">Group 3</label>
-
-		<ul>
-			<li><a href="#0">Image</a></li>
-			<li><a href="#0">Image</a></li>
-		</ul></li>
-
-	<li class="has-children"><input
-		type="checkbox"
-		name="group-4"
-		id="group-4"> <label for="group-4">Group 4</label>
-
+		name="processing"
+		id="processing"> <label for="processing"><spring:message code="processing" /> </label>
 		<ul>
 			<li class="has-children"><input
 				type="checkbox"
-				name="sub-group-3"
-				id="sub-group-3"> <label for="sub-group-3">Sub Group 3</label>
-
+				name="leave"
+				id="leave"> <label for="leave"><spring:message code="leave" /></label>
 				<ul>
-					<li><a href="#0">Image</a></li>
-					<li><a href="#0">Image</a></li>
+					<li><a href="#0"><spring:message code="leave_entitlement" /></a></li>
+					<li><a href="#0"><spring:message code="leave_application" /></a></li>
 				</ul></li>
-			<li><a href="#0">Image</a></li>
-			<li><a href="#0">Image</a></li>
+
+			<li class="has-children"><input
+				type="checkbox"
+				name="approval"
+				id="approval"> <label for="approval"><spring:message code="approval" /></label>
+				<ul>
+					<li><a href="#0"><spring:message code="approval_summary" /></a></li>
+				</ul></li>
+		</ul></li>
+
+	<li class="has-children"><input
+		type="checkbox"
+		name="enquiry"
+		id="enquiry"> <label for="enquiry"><spring:message code="enquiry" /></label>
+		<ul>
+			<li><a href="#0"><spring:message code="leave_enquiry" /></a></li>
+		</ul></li>
+
+	<li class="has-children"><input
+		type="checkbox"
+		name="report"
+		id="report"> <label for="report"><spring:message code="report" /></label>
+
+		<ul>
+			<li><a href="#0"><spring:message code="leave_balance_report" /></a></li>
 		</ul></li>
 </ul>
 

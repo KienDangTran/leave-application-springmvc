@@ -21,12 +21,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.giong.lv.persistence" })
-@EnableJpaRepositories(basePackages = { "com.giong.lv.repository" })
+@ComponentScan(basePackages = { "com.giong.web.persistence" })
+@EnableJpaRepositories(basePackages = { "com.giong.web.repository" })
 @PropertySource("classpath:application.properties")
 public class JpaConfig {
 	
-	private final String MODEL_PACKAGES_TO_SCAN = "com.giong.lv.persistence";
+	private final String MODEL_PACKAGES_TO_SCAN = "com.giong.web.persistence";
 	private final String DRIVER_CLASS_NAME = "driverClassName";
 	private final String URL = "url";
 	private final String USERNAME = "user";

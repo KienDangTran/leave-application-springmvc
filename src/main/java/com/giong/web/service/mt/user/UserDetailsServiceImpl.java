@@ -1,4 +1,4 @@
-package com.giong.lv.service;
+package com.giong.web.service.mt.user;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.giong.lv.persistence.mt.MtUser;
-import com.giong.lv.repository.mt.UserRepository;
+import com.giong.web.persistence.mt.MtUser;
+import com.giong.web.repository.mt.UserRepository;
 
 @Service("userDetailsService")
 @Transactional(readOnly = true)

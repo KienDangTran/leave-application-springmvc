@@ -1,4 +1,4 @@
-package com.giong.lv.persistence;
+package com.giong.web.persistence;
 
 import java.io.Serializable;
 

@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "com.giong.lv.controller" })
+@ComponentScan(basePackages = { "com.giong.web.controller" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	private static final String LOCALE_PARAM = "locale";

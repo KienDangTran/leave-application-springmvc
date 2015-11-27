@@ -1,4 +1,4 @@
-package com.giong.lv.controller;
+package com.giong.web.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -24,16 +24,21 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		HomeController.logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		final Date date = new Date();
+		final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		String formattedDate = dateFormat.format(date);
+		final String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("serverTime", formattedDate);
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/employee", method = RequestMethod.GET)
+	public String employee(Locale locale, Model model) {
+		return "employee";
 	}
 	
 }

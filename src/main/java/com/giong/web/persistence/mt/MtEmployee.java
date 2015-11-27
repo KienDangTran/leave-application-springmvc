@@ -1,4 +1,4 @@
-package com.giong.lv.persistence.mt;
+package com.giong.web.persistence.mt;
 
 
 import java.util.Date;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.giong.lv.persistence.AbstractEntity;
+import com.giong.web.persistence.AbstractEntity;
 
 
 /**

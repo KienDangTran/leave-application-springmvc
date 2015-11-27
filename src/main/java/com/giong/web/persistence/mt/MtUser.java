@@ -1,4 +1,4 @@
-package com.giong.lv.persistence.mt;
+package com.giong.web.persistence.mt;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.giong.lv.persistence.AbstractEntity;
+import com.giong.web.persistence.AbstractEntity;
 
 
 /**
