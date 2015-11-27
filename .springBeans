@@ -11,6 +11,7 @@
 		<config>java:com.giong.config.JpaConfig</config>
 		<config>java:com.giong.config.SecurityConfig</config>
 		<config>java:com.giong.config.ServiceConfig</config>
+		<config>java:com.giong.config.WebFlowConfig</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -14,36 +14,60 @@
 
 	<properties>
 		<java-version>1.8</java-version>
-		<springframework-version>4.2.3.RELEASE</springframework-version>
+		<spring.framework-version>4.2.3.RELEASE</spring.framework-version>
 		<spring-security.version>4.0.2.RELEASE</spring-security.version>
 		<spring.data.jpa-version>1.9.1.RELEASE</spring.data.jpa-version>
 		<aspectj-version>1.8.7</aspectj-version>
+		<webflow-version>2.4.2.RELEASE</webflow-version>
+		<tiles-version>3.0.5</tiles-version>
 		<hibernate-version>5.0.3.Final</hibernate-version>
-		<!-- <hibernate.validator-version>5.2.2.Final</hibernate.validator-version> -->
-		<!-- <hibernate.commons.annotations-version>5.0.0.Final</hibernate.commons.annotations-version> -->
-		<!-- <hibernate.jpa-version>1.0.1.Final</hibernate.jpa-version> -->
+		<hibernate.validator-version>5.2.2.Final</hibernate.validator-version>
 		<mysql-version>5.1.36</mysql-version>
 		<org.slf4j-version>1.7.13</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
 		<junit-version>4.12</junit-version>
+		<easymock-version>3.4</easymock-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2</jsp-version>
 		<jstl-version>1.2</jstl-version>
 		<maven.eclipse.plugin-version>2.10</maven.eclipse.plugin-version>
 		<maven.compiler.plugin-version>3.3</maven.compiler.plugin-version>
 		<maven.war.plugin-version>2.6</maven.war.plugin-version>
-		<exec.maven.plugin-version>1.4.0</exec.maven.plugin-version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>spring</id>
+			<name>Spring Repository</name>
+			<url>http://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.framework-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${springframework-version}</version>
+			<artifactId>spring-web</artifactId>
 			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
@@ -53,51 +77,84 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${springframework-version}</version>
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-tx</artifactId> -->
-		<!-- <version>${springframework-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-orm</artifactId> -->
-		<!-- <version>${springframework-version}</version> -->
-		<!-- </dependency> -->
-
-		<!-- AspectJ -->
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${aspectj-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
 		</dependency>
-
-		<!-- Spring-Security dependencies -->
+		<!-- Spring Web Flow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${webflow-version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-js</artifactId>
+			<version>${webflow-version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-
 		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data.jpa-version}</version>
+		</dependency>
+
+		<!-- Apache Tiles 3 -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>${tiles-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${tiles-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-api</artifactId>
+			<version>${tiles-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-servlet</artifactId>
+			<version>${tiles-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-template</artifactId>
+			<version>${tiles-version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -106,27 +163,12 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate-version}</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate</groupId> -->
-		<!-- <artifactId>hibernate-core</artifactId> -->
-		<!-- <version>${hibernate-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate</groupId> -->
-		<!-- <artifactId>hibernate-validator</artifactId> -->
-		<!-- <version>${hibernate.validator-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate.common</groupId> -->
-		<!-- <artifactId>hibernate-commons-annotations</artifactId> -->
-		<!-- <version>${hibernate.commons.annotations-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate.javax.persistence</groupId> -->
-		<!-- <artifactId>hibernate-jpa-2.0-api</artifactId> -->
-		<!-- <version>${hibernate.jpa-version}</version> -->
-		<!-- </dependency> -->
-		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator-version}</version>
+		</dependency>
+
 		<!-- MySQL Java Connector dependency -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -185,13 +227,17 @@
 			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>${easymock-version}</version>
+		</dependency>
 
-		<!-- @Inject -->
-		<!-- <dependency> -->
-		<!-- <groupId>javax.inject</groupId> -->
-		<!-- <artifactId>javax.inject</artifactId> -->
-		<!-- <version>1</version> -->
-		<!-- </dependency> -->
 
 		<!-- Servlet & JSP & JSTL -->
 		<dependency>
@@ -250,11 +296,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>${exec.maven.plugin-version}</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14</version>
 				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
+					<junitArtifactName>junit:junit</junitArtifactName>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>

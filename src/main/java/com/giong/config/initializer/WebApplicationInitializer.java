@@ -9,18 +9,19 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import com.giong.config.JpaConfig;
 import com.giong.config.SecurityConfig;
 import com.giong.config.ServiceConfig;
+import com.giong.config.WebFlowConfig;
 import com.giong.config.WebMvcConfig;
 
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { ServiceConfig.class, JpaConfig.class, SecurityConfig.class };
+		return new Class[] { ServiceConfig.class, JpaConfig.class, WebMvcConfig.class, WebFlowConfig.class, SecurityConfig.class };
 	}
 	
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebMvcConfig.class };
+		return null;
 	}
 	
 	@Override
