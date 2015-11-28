@@ -12,6 +12,7 @@
 		<config>java:com.giong.config.SecurityConfig</config>
 		<config>java:com.giong.config.ServiceConfig</config>
 		<config>java:com.giong.config.WebFlowConfig</config>
+		<config>java:com.giong.util.MessageUtil</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -28,9 +28,25 @@ a {
 
 h1 {
 	text-align: center;
-	width: 90%;
+	width: 100%;
 	margin: 2em auto 0;
 	font-size: 2.4rem;
+	color: #507b55;
+	font-weight: bold;
+}
+
+h2 {
+	text-align: left;
+	width: 80%;
+	font-size: 2.2rem;
+	color: #507b55;
+	font-weight: bold;
+}
+
+h3 {
+	text-align: left;
+	width: 60%;
+	font-size: 1.9rem;
 	color: #507b55;
 	font-weight: bold;
 }
@@ -47,17 +63,14 @@ input {
 }
 
 a, a:visited, a:link, a:active {
-	color: #59924B;
+	color: green;
 	background-color: transparent;
-	text-decoration: none;
-	font-weight: bold;
+	text-decoration: underline;
 }
 
 a:hover {
-	color: white;
-	background-color: #65a242;
-	text-decoration: none;
-	font-weight: bold;
+	color: navy;
+	text-decoration: underline;
 }
 
 button {
@@ -79,6 +92,7 @@ Main Components
 -------------------------------- */
 #content {
 	width: 80%;
+	min-width: 1200px;
 	padding: 10px;
 	background: rgba(255, 255, 255, 0.33);
 	position: absolute;
@@ -104,12 +118,20 @@ Main Components
 	left: 0;
 }
 
+#user-box{
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 20px;
+}
+
 .cd-accordion-menu {
 	width: 90%;
 	max-width: 600px;
 	background: #4d5158;
 	margin: auto;
 	box-shadow: 0 4px 40px #70ac76;
+	
 }
 
 .cd-accordion-menu ul {
@@ -260,41 +282,41 @@ Main Components
 
 @media only screen and (min-width: 600px) {
 	.cd-accordion-menu label, .cd-accordion-menu a {
-		padding: 24px 24px 24px 82px;
+		padding: 24px 24px 24px 60px;
 		font-size: 1.9rem;
 	}
 	.cd-accordion-menu label::before {
-		left: 24px;
+		left: 10px;
 	}
 	.cd-accordion-menu label::after {
-		left: 53px;
+		left: 30px;
 	}
 	.cd-accordion-menu ul label, .cd-accordion-menu ul a {
-		padding-left: 106px;
+		padding-left: 80px;
 	}
 	.cd-accordion-menu ul label::before {
-		left: 48px;
+		left: 30px;
 	}
 	.cd-accordion-menu ul label::after, .cd-accordion-menu ul a::after {
-		left: 77px;
+		left: 50px;
 	}
 	.cd-accordion-menu ul ul label, .cd-accordion-menu ul ul a {
-		padding-left: 130px;
+		padding-left: 100px;
 	}
 	.cd-accordion-menu ul ul label::before {
-		left: 72px;
+		left: 50px;
 	}
 	.cd-accordion-menu ul ul label::after, .cd-accordion-menu ul ul a::after {
-		left: 101px;
+		left: 80px;
 	}
 	.cd-accordion-menu ul ul ul label, .cd-accordion-menu ul ul ul a {
-		padding-left: 154px;
+		padding-left: 120px;
 	}
 	.cd-accordion-menu ul ul ul label::before {
-		left: 96px;
+		left: 80px;
 	}
 	.cd-accordion-menu ul ul ul label::after, .cd-accordion-menu ul ul ul a::after {
-		left: 125px;
+		left: 100px;
 	}
 }
 

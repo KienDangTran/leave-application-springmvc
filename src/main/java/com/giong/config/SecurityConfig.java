@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -46,19 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		super.configure(http);
 		
 		// @formatter:off
-		http
-			.csrf().disable().httpBasic()
-			.and()
-				.headers().cacheControl().and()
-			.and()
-				.sessionManagement().sessionFixation().none()
-			.and()
-				.authorizeRequests().anyRequest().authenticated()
+		http.authorizeRequests().anyRequest().authenticated()
 			.and()
 				.formLogin().loginProcessingUrl("/login")
 							.permitAll()
 			.and()
-				.logout().invalidateHttpSession(true)
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+						 .invalidateHttpSession(true)
 						 .deleteCookies("JSESSIONID", AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY)
 			.and()
 				.rememberMe().rememberMeServices(this.rememberMeServices())
