@@ -63,10 +63,10 @@
 
 	<dependencies>
 
-		<!-- Spring -->
+		<!-- Spring Web MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
+			<artifactId>spring-context-support</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -82,6 +82,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 		</dependency>
+		<!-- END - Spring Web MVC -->
 		<!-- Spring Web Flow -->
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
@@ -105,6 +106,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<!-- Hibernate validator -->
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator-version}</version>
+		</dependency>
+		<!-- END - Spring Web Flow -->
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -126,12 +134,19 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
+		<!-- END - Spring Security -->
 		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data.jpa-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
+		<!-- END - Spring Data JPA -->
 
 		<!-- Apache Tiles 3 -->
 		<dependency>
@@ -161,21 +176,10 @@
 			<artifactId>tiles-template</artifactId>
 			<version>${tiles-version}</version>
 		</dependency>
+		<!-- END - Apache Tiles 3 -->
 
-		<!-- Hibernate -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate.validator-version}</version>
-		</dependency>
-
-		<!-- MySQL Java Connector dependency -->
-		<dependency>
+			<!-- MySQL Java Connector -->
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-version}</version>
@@ -224,6 +228,7 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- END - Logging -->
 
 		<!-- Test -->
 		<dependency>
@@ -242,7 +247,7 @@
 			<artifactId>easymock</artifactId>
 			<version>${easymock-version}</version>
 		</dependency>
-
+		<!-- END - Test -->
 
 		<!-- Servlet & JSP & JSTL -->
 		<dependency>
@@ -262,6 +267,7 @@
 			<version>${jsp-version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- END - Servlet & JSP & JSTL -->
 
 	</dependencies>
 
