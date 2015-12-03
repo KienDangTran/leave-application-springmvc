@@ -3,7 +3,6 @@ package com.giong.config.initializer;
 import javax.servlet.Filter;
 
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.giong.config.JpaConfig;
@@ -11,6 +10,8 @@ import com.giong.config.SecurityConfig;
 import com.giong.config.ServiceConfig;
 import com.giong.config.WebFlowConfig;
 import com.giong.config.WebMvcConfig;
+import com.github.dandelion.core.web.DandelionFilter;
+import com.github.dandelion.core.web.DandelionServlet;
 
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
@@ -21,7 +22,7 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 	
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return null;
+		return new Class[] { DandelionServlet.class };
 	}
 	
 	@Override
@@ -31,7 +32,7 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 	
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] { new DelegatingFilterProxy("springSecurityFilterChain"), new OpenEntityManagerInViewFilter() };
+		return new Filter[] { new OpenEntityManagerInViewFilter(), new DandelionFilter() };
 	}
 	
 }
