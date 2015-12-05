@@ -49,6 +49,9 @@
 		<jstl-version>1.2</jstl-version>
 		<dandelion.datatables-version>1.1.0</dandelion.datatables-version>
 		<dandelion-version>1.1.1</dandelion-version>
+		<webjars.jquery.ui-version>1.11.4</webjars.jquery.ui-version>
+		<webjars.bootstrap-version>3.3.6</webjars.bootstrap-version>
+		<webjars.jquery-version>2.1.4</webjars.jquery-version>
 		<cobertura-version>2.7</cobertura-version>
 
 	</properties>
@@ -251,8 +254,25 @@
 			<artifactId>datatables-spring3</artifactId>
 			<version>${dandelion.datatables-version}</version>
 		</dependency>
-
 		<!-- END - Dandelion -->
+		
+		<!-- Webjars (static dependencies distributed as JAR files) -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars.bootstrap-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-ui</artifactId>
+            <version>${webjars.jquery.ui-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjars.jquery-version}</version>
+        </dependency>
+        <!-- END Webjar -->
 
 		<!-- Logging -->
 		<dependency>

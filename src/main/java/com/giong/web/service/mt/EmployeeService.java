@@ -17,4 +17,8 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 		return this.repository.findAll();
 	}
 	
+	public MtEmployee findEmployeeyCode(String employeeCode) {
+		return this.repository.findOne(employeeCode);
+	}
+	
 }

@@ -24,6 +24,7 @@ public class TilesConfig implements DefinitionsFactory {
 	public static void addDefinitions() {
 		TilesConfig.addDefaultLayoutDef("home", "Home", "/WEB-INF/views/home.jsp");
 		TilesConfig.addDefaultLayoutDef("employee", "Employee Management", "/WEB-INF/views/admin/employee/employee.jsp");
+		TilesConfig.addDefaultLayoutDef("employeeDetails", "Employee Details", "/WEB-INF/views/admin/employee/employee-details.jsp");
 	}
 	
 	/**

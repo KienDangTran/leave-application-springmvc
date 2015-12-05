@@ -325,6 +325,17 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Kien/.m2/repository/com/github/dandelion/datatables-spring3/1.1.0/datatables-spring3-1.1.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/webjars/bootstrap/3.3.6/bootstrap-3.3.6.jar" sourcepath="M2_REPO/org/webjars/bootstrap/3.3.6/bootstrap-3.3.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Kien/.m2/repository/org/webjars/bootstrap/3.3.6/bootstrap-3.3.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/webjars/jquery/2.1.4/jquery-2.1.4.jar" sourcepath="M2_REPO/org/webjars/jquery/2.1.4/jquery-2.1.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/webjars/jquery-ui/1.11.4/jquery-ui-1.11.4.jar" sourcepath="M2_REPO/org/webjars/jquery-ui/1.11.4/jquery-ui-1.11.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Kien/.m2/repository/org/webjars/jquery-ui/1.11.4/jquery-ui-1.11.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.13/slf4j-log4j12-1.7.13.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.7.13/slf4j-log4j12-1.7.13-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Kien/.m2/repository/org/slf4j/slf4j-log4j12/1.7.13/slf4j-log4j12-1.7.13-javadoc.jar!/"/>
