@@ -25,7 +25,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		final Locale locale = request.getLocale();
-		this.logger.info("Welcome home! The client locale is {}.", locale);
+		this.logger.info("Welcome home! The client locale is." + locale.getDisplayCountry());
 		
 		final Date date = new Date();
 		final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);

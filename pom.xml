@@ -155,6 +155,11 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-aspects</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
 		<!-- END - Spring Security -->
 		<!-- Spring Data JPA -->
 		<dependency>
@@ -238,41 +243,26 @@
 			<groupId>com.github.dandelion</groupId>
 			<artifactId>datatables-jsp</artifactId>
 			<version>${dandelion.datatables-version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.github.dandelion</groupId>
-					<artifactId>dandelion-jsp</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.github.dandelion</groupId>
-					<artifactId>dandelion-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.github.dandelion</groupId>
-			<artifactId>datatables-spring3</artifactId>
-			<version>${dandelion.datatables-version}</version>
 		</dependency>
 		<!-- END - Dandelion -->
-		
+
 		<!-- Webjars (static dependencies distributed as JAR files) -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${webjars.bootstrap-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${webjars.jquery.ui-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${webjars.jquery-version}</version>
-        </dependency>
-        <!-- END Webjar -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${webjars.bootstrap-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-ui</artifactId>
+			<version>${webjars.jquery.ui-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${webjars.jquery-version}</version>
+		</dependency>
+		<!-- END Webjar -->
 
 		<!-- Logging -->
 		<dependency>

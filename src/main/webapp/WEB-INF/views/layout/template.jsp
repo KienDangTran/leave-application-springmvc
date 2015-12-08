@@ -19,23 +19,22 @@
 </head>
 
 <body>
-	<div class="container">
-		<div id="menu" class="navbar" role="navigation">
-			<tiles:insertAttribute name="menu" />
-		</div>
-		<div id="header">
-			<tiles:insertAttribute name="header" />
-		</div>
-		<div id="content">
-			<tiles:insertAttribute name="content" />
-		</div>
-		<div id="footer">
-			<tiles:insertAttribute name="footer" />
-		</div>
+	<div id="header" class="container-fluid">
+		<tiles:insertAttribute name="header" />
+	</div>
+	<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="250">
+		<tiles:insertAttribute name="menu" />
+	</nav>
+	<div id="content" class="container">
+		<tiles:insertAttribute name="content" />
+	</div>
+	<div id="footer" class="container">
+		<tiles:insertAttribute name="footer" />
 	</div>
 
 	<script src="${pageContext.request.contextPath}/webjars/jquery/2.1.4/jquery.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/webjars/jquery-ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js" type="text/javascript"></script>
 </body>
 </html>

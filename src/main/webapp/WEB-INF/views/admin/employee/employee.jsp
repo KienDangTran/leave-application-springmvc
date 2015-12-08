@@ -11,14 +11,15 @@
 	<spring:message code="employee_management" />
 </h1>
 
-<datatables:table id="empTbl" data="${allEmployees}" row="employee" cssClass="table table-striped">
-	<datatables:column title="${employee_code}" filterable="true">
-		<spring:url value="/employee/${employee.employeeCode}" var="employeeDetailsUrl" htmlEscape="true" />
-		<a href="${employeeDetailsUrl}">${employee.employeeCode}</a>
-	</datatables:column>
+<div class="table-responsive well">
+	<datatables:table id="empTbl" data="${allEmployees}" row="employee" cssClass="table table-striped">
+		<datatables:column title="${employee_code}">
+			<a href="<spring:url value="/employee/${employee.employeeCode}" />">${employee.employeeCode}</a>
+		</datatables:column>
 
-	<datatables:column title="${employee_name}" property="employeeName" filterable="true" sortable="true" />
-</datatables:table>
+		<datatables:column title="${employee_name}" property="employeeName" />
+	</datatables:table>
+</div>
 
 
 

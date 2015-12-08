@@ -14,35 +14,12 @@ body {
 Main Components 
 
 -------------------------------- */
-#menu {
-	position: relative;
-	margin: auto;
-	height: 50px;
-}
-
-#header {
-	position: relative;
-	height: 250px;
-}
-
 #content {
-	margin: auto;
 	padding: 10px;
 	background: rgba(255, 255, 255, 0.33);
-	position: relative;
 }
 
-#footer {
-	position: relative;
-	margin: auto;
-	height: 50px;
-}
-
-#user-box {
-	position: absolute;
+.affix {
 	top: 0;
-	right: 0;
-	font-weight: bold;
-	padding: 15px;
-	color: #9d9d9d;
+	width: 100%;
 }
