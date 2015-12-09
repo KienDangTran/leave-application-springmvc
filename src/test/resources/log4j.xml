@@ -17,7 +17,7 @@
 	</appender>
 
 	<appender
-		name="file"
+		name="lv-app"
 		class="org.apache.log4j.RollingFileAppender">
 		<param
 			name="File"
@@ -35,34 +35,95 @@
 		</layout>
 	</appender>
 
+	<appender
+		name="spring"
+		class="org.apache.log4j.RollingFileAppender">
+		<param
+			name="File"
+			value="${catalina.home}/logs/spring.log" />
+		<param
+			name="MaxFileSize"
+			value="5MB" />
+		<param
+			name="MaxBackupIndex"
+			value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param
+				name="ConversionPattern"
+				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		name="hibernate"
+		class="org.apache.log4j.RollingFileAppender">
+		<param
+			name="File"
+			value="${catalina.home}/logs/hibernate.log" />
+		<param
+			name="MaxFileSize"
+			value="5MB" />
+		<param
+			name="MaxBackupIndex"
+			value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param
+				name="ConversionPattern"
+				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+		</layout>
+	</appender>
+
 	<!-- Application Loggers -->
 	<category name="com.giong">
 		<priority value="debug" />
+		<appender-ref ref="lv-app" />
 	</category>
 
 	<!-- 3rdparty Loggers -->
-
 	<category name="org.springframework">
 		<priority value="info" />
+		<appender-ref ref="spring" />
+	</category>
+
+	<category name="org.springframework.beans">
+		<priority value="debug" />
+		<appender-ref ref="spring" />
+	</category>
+
+	<category name="org.springframework.security">
+		<priority value="debug" />
+		<appender-ref ref="spring" />
+	</category>
+
+	<category name="org.springframework.beans.CachedIntrospectionResults">
+		<priority value="debug" />
+		<appender-ref ref="spring" />
+	</category>
+
+	<category name="org.springframework.jdbc.core">
+		<priority value="debug" />
+		<appender-ref ref="spring" />
+	</category>
+
+	<category name="org.springframework.transaction.support.TransactionSynchronizationManager">
+		<priority value="debug" />
+		<appender-ref ref="spring" />
 	</category>
 
 	<category name="com.github.dandelion">
-		<priority value="info" />
+		<priority value="debug" />
+		<appender-ref ref="spring" />
 	</category>
 
 	<category name="org.hibernate">
-		<priority value="info" />
-	</category>
-
-	<category name="org.apache">
-		<priority value="info" />
+		<priority value="debug" />
+		<appender-ref ref="hibernate" />
 	</category>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
-		<appender-ref ref="file" />
 	</root>
 
 </log4j:configuration>
