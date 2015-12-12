@@ -12,7 +12,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.giong.config.JpaConfig;
 import com.giong.config.SecurityConfig;
-import com.giong.config.ServiceConfig;
 import com.giong.config.WebFlowConfig;
 import com.giong.config.WebMvcConfig;
 import com.github.dandelion.core.web.DandelionFilter;
@@ -24,7 +23,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// Register the Root application context
 		final AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(WebMvcConfig.class, ServiceConfig.class, JpaConfig.class, WebFlowConfig.class, SecurityConfig.class);
+		rootContext.register(WebMvcConfig.class, JpaConfig.class, WebFlowConfig.class, SecurityConfig.class);
 		
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 		

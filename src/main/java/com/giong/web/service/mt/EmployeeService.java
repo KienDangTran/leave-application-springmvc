@@ -10,8 +10,8 @@ import com.giong.web.persistence.mt.MtEmployee;
 import com.giong.web.repository.mt.EmployeeRepository;
 import com.giong.web.service.BaseService;
 
+@Transactional
 @Service("employeeService")
-@Transactional(readOnly = true)
 @PreAuthorize("hasAuthority('VIEW_EMP')")
 public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRepository> {
 	
@@ -21,6 +21,10 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 	
 	public MtEmployee findEmployeeyCode(String employeeCode) {
 		return this.repository.findOne(employeeCode);
+	}
+	
+	public void updateEmployee(MtEmployee employee) {
+		this.repository.saveAndFlush(employee);
 	}
 	
 }

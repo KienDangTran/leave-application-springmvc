@@ -36,7 +36,7 @@
 				</ul></li>
 
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="glyphicon glyphicon-cog"></span>
 					<spring:message code="processing" />
 					<span class="caret"></span>
 				</a>

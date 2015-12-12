@@ -32,6 +32,7 @@ public class MtEmployee extends AbstractEntity {
 	@Column(name = "DATE_OF_BIRTH")
 	private Date dateOfBirth;
 	
+	@Column(name = "EMAIL")
 	private String email;
 	
 	@Column(name = "EMPLOYEE_NAME")

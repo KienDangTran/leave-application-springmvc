@@ -1,7 +1,6 @@
 package com.giong.config;
 
 import java.util.Locale;
-import java.util.Properties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "com.giong.web.controller" })
+@ComponentScan(basePackages = { "com.giong.web" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	private static final String LOCALE_PARAM = "locale";
@@ -89,12 +87,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(interceptor);
 	}
 	
-	@Bean(name = "simpleMappingExceptionResolver")
-	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-		final SimpleMappingExceptionResolver exResolver = new SimpleMappingExceptionResolver();
-		final Properties mappings = new Properties();
-		mappings.put("org.springframework.dao.DataAccessException", "error");
-		exResolver.setExceptionMappings(mappings);
-		return exResolver;
-	}
+	//	@Bean(name = "simpleMappingExceptionResolver")
+	//	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+	//		final SimpleMappingExceptionResolver exResolver = new SimpleMappingExceptionResolver();
+	//		final Properties mappings = new Properties();
+	//		mappings.put("org.springframework.dao.DataAccessException", "error");
+	//		exResolver.setExceptionMappings(mappings);
+	//		return exResolver;
+	//	}
 }

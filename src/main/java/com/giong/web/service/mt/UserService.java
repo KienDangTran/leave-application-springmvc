@@ -12,8 +12,8 @@ import com.giong.web.persistence.mt.MtUser;
 import com.giong.web.repository.mt.UserRepository;
 import com.giong.web.service.BaseService;
 
+@Transactional
 @Service("userDetailsService")
-@Transactional(readOnly = true)
 public class UserService extends BaseService<MtUser, String, UserRepository> implements UserDetailsService {
 	
 	@Override
