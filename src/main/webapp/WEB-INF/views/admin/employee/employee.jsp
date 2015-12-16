@@ -7,6 +7,8 @@
 <spring:message code="employee_code" var="employee_code" />
 <spring:message code="employee_name" var="employee_name" />
 
+<spring:url value="/employee/add" var="addEmpUrl" />
+
 <h1>
 	<spring:message code="employee_summary" />
 </h1>
@@ -14,10 +16,10 @@
 <div class="table-responsive panel">
 	<div class="panel-heading">
 		<div class="btn-group">
-			<button type="button" class="btn-lg btn-primary pull-right" onclick="">
+			<a class="btn btn-lg btn-primary" href="${addEmpUrl}">
 				<span class="glyphicon glyphicon-plus-sign" />
 				<spring:message code="add" />
-			</button>
+			</a>
 		</div>
 	</div>
 	<div class="panel-body">

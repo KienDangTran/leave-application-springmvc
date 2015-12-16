@@ -19,7 +19,7 @@ import com.giong.web.persistence.AbstractEntity;
  * 
  */
 @Entity
-@Table(name = "mt_employee")
+@Table(name = "MT_EMPLOYEE")
 @NamedQuery(name = "MtEmployee.findAll", query = "SELECT m FROM MtEmployee m")
 public class MtEmployee extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -44,6 +44,11 @@ public class MtEmployee extends AbstractEntity {
 	private String status;
 	
 	public MtEmployee() {
+	}
+	
+	@Override
+	public Object getPk() {
+		return this.employeeCode;
 	}
 	
 	public String getEmployeeCode() {

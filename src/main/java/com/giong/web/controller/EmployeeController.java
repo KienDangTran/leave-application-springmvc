@@ -1,21 +1,13 @@
 package com.giong.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,19 +32,11 @@ public class EmployeeController extends BaseController {
 	private List<MtEmployee> allEmployees;
 	private MtEmployee currentEmployee;
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(this.validator);
-		final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-	}
-	
-	@Override
 	@RequestMapping(value = "/employee", method = RequestMethod.GET)
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		final ModelAndView mv = new ModelAndView(EmployeeController.EMPLOYEE_VIEW_NAME);
-		mv.addObject("allEmployees", this.getAllEmployees());
-		return mv;
+	protected String getAllEmployee(Model model) throws Exception {
+		this.allEmployees = this.service.getAllEmployee();
+		model.addAttribute("allEmployees", this.allEmployees);
+		return EmployeeController.EMPLOYEE_VIEW_NAME;
 	}
 	
 	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.GET)
@@ -73,11 +57,16 @@ public class EmployeeController extends BaseController {
 		
 		redirectAttributes.addFlashAttribute("css", "success");
 		this.currentEmployee = currentEmp;
-		this.service.updateEmployee(this.currentEmployee);
+		this.service.saveEmployee(this.currentEmployee);
 		return "redirect:/employee/" + this.currentEmployee.getEmployeeCode();
 	}
 	
-	
+	@RequestMapping(value = "/employee/add", method = RequestMethod.GET)
+	public String addEmployee(Model model) {
+		this.currentEmployee = this.service.createEmptyEmployee();
+		model.addAttribute("currentEmployee", this.currentEmployee);
+		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
+	}
 	
 	/*
 	 * GETTER & SETTER
@@ -92,11 +81,6 @@ public class EmployeeController extends BaseController {
 		return this.validator;
 	}
 	
-	public List<MtEmployee> getAllEmployees() {
-		this.allEmployees = this.service.getAllEmployee();
-		return this.allEmployees;
-	}
-	
 	public MtEmployee getCurrentEmployee() {
 		return this.currentEmployee;
 	}
@@ -104,4 +88,5 @@ public class EmployeeController extends BaseController {
 	public void setCurrentEmployee(MtEmployee currentEmployee) {
 		this.currentEmployee = currentEmployee;
 	}
+	
 }

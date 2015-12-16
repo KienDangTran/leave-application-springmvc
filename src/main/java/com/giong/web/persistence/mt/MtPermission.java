@@ -20,7 +20,7 @@ import com.giong.web.persistence.AbstractEntity;
  * 
  */
 @Entity
-@Table(name = "mt_permission")
+@Table(name = "MT_PERMISSION")
 @NamedQuery(name = "MtPermission.findAll", query = "SELECT m FROM MtPermission m")
 public class MtPermission extends AbstractEntity implements GrantedAuthority, Comparable<GrantedAuthority> {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +39,11 @@ public class MtPermission extends AbstractEntity implements GrantedAuthority, Co
 	private List<MtRole> mtRoles;
 	
 	public MtPermission() {
+	}
+	
+	@Override
+	public Object getPk() {
+		return this.getPermissionCode();
 	}
 	
 	public String getPermissionCode() {

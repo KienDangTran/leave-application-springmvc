@@ -28,7 +28,7 @@ import com.giong.web.persistence.AbstractEntity;
  * 
  */
 @Entity
-@Table(name = "mt_user")
+@Table(name = "MT_USER")
 @NamedQuery(name = "MtUser.findAll", query = "SELECT m FROM MtUser m")
 public class MtUser extends AbstractEntity implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -46,12 +46,16 @@ public class MtUser extends AbstractEntity implements UserDetails {
 	@Column(name = "CREDENTIALS_NON_EXPIRED")
 	private boolean credentialsNonExpired;
 	
+	@Column(name = "ENABLED")
 	private boolean enabled;
 	
+	@Column(name = "PASSWORD")
 	private String password;
 	
+	@Column(name = "THEME")
 	private String theme;
 	
+	@Column(name = "USERNAME")
 	private String username;
 	
 	//uni-directional one-to-one association to MtEmployee
@@ -65,6 +69,11 @@ public class MtUser extends AbstractEntity implements UserDetails {
 	private List<MtRole> mtRoles;
 	
 	public MtUser() {
+	}
+	
+	@Override
+	public Object getPk() {
+		return this.getUserId();
 	}
 	
 	public String getUserId() {

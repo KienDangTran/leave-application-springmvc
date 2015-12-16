@@ -21,7 +21,7 @@ import com.giong.web.persistence.AbstractEntity;
  * 
  */
 @Entity
-@Table(name = "mt_role")
+@Table(name = "MT_ROLE")
 @NamedQuery(name = "MtRole.findAll", query = "SELECT m FROM MtRole m")
 public class MtRole extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -45,6 +45,11 @@ public class MtRole extends AbstractEntity {
 	private List<MtUser> mtUsers;
 	
 	public MtRole() {
+	}
+	
+	@Override
+	public Object getPk() {
+		return this.getRoleCode();
 	}
 	
 	public String getRoleCode() {
