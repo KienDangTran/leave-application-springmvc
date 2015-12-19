@@ -16,7 +16,6 @@ Main Components
 
 -------------------------------- */
 #content {
-	padding: .5em;
 	background: rgba(255, 255, 255, 0.33);
 }
 
@@ -25,7 +24,7 @@ Main Components
 	width: 100%;
 }
 
-.required:before {
+.required:after {
 	content: " * ";
 	color: red;
 	font-weight: 900;

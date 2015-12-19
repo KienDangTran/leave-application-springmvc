@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.giong.web.persistence.mt.MtEmployee;
@@ -40,11 +39,11 @@ public class EmployeeController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.GET)
-	public ModelAndView viewEmployeeDetails(@PathVariable("employeeCode") String employeeCode) {
-		final ModelAndView mv = new ModelAndView(EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME);
+	public String viewEmployeeDetails(@PathVariable("employeeCode") String employeeCode, Model model) {
 		this.currentEmployee = this.service.findEmployeeyCode(employeeCode);
-		mv.addObject("currentEmployee", this.currentEmployee);
-		return mv;
+		model.addAttribute("currentEmployee", this.currentEmployee);
+		model.addAttribute("editable", false);
+		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	
 	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.POST)
@@ -52,10 +51,11 @@ public class EmployeeController extends BaseController {
 		
 		if (result.hasErrors()) {
 			this.logger.error(result.getAllErrors().toString());
+			model.addAttribute("editable", true);
 			return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 		}
 		
-		redirectAttributes.addFlashAttribute("css", "success");
+		model.addAttribute("editable", false);
 		this.currentEmployee = currentEmp;
 		this.service.saveEmployee(this.currentEmployee);
 		return "redirect:/employee/" + this.currentEmployee.getEmployeeCode();
@@ -65,6 +65,7 @@ public class EmployeeController extends BaseController {
 	public String addEmployee(Model model) {
 		this.currentEmployee = this.service.createEmptyEmployee();
 		model.addAttribute("currentEmployee", this.currentEmployee);
+		model.addAttribute("editable", true);
 		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	

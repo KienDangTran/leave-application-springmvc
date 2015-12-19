@@ -3,6 +3,7 @@ package com.giong.web.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -28,7 +29,7 @@ public class EmployeeValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "employeeName", "validator.employee_name_is_required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateOfBirth", "validator.dob_is_required");
 		
-		if (!this.emailValidator.valid(currentEMployee.getEmail())) {
+		if (!StringUtils.isEmpty(currentEMployee.getEmail()) && !this.emailValidator.valid(currentEMployee.getEmail())) {
 			errors.rejectValue("email", "validator.email_is_not_well_formed");
 		}
 	}

@@ -3,122 +3,108 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
-	<appender
-		name="console"
-		class="org.apache.log4j.ConsoleAppender">
-		<param
-			name="Target"
-			value="System.out" />
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param
-				name="ConversionPattern"
-				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+			<param name="ConversionPattern" value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
 		</layout>
 	</appender>
 
-	<appender
-		name="lv-app"
-		class="org.apache.log4j.RollingFileAppender">
-		<param
-			name="File"
-			value="${catalina.home}/logs/lv-app.log" />
-		<param
-			name="MaxFileSize"
-			value="5MB" />
-		<param
-			name="MaxBackupIndex"
-			value="10" />
+	<appender name="lv-app" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/lv-app.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param
-				name="ConversionPattern"
-				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+			<param name="ConversionPattern" value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
 		</layout>
 	</appender>
 
-	<appender
-		name="spring"
-		class="org.apache.log4j.RollingFileAppender">
-		<param
-			name="File"
-			value="${catalina.home}/logs/spring.log" />
-		<param
-			name="MaxFileSize"
-			value="5MB" />
-		<param
-			name="MaxBackupIndex"
-			value="10" />
+	<appender name="spring" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/spring.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param
-				name="ConversionPattern"
-				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+			<param name="ConversionPattern" value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
 		</layout>
 	</appender>
 
-	<appender
-		name="hibernate"
-		class="org.apache.log4j.RollingFileAppender">
-		<param
-			name="File"
-			value="${catalina.home}/logs/hibernate.log" />
-		<param
-			name="MaxFileSize"
-			value="5MB" />
-		<param
-			name="MaxBackupIndex"
-			value="10" />
+	<appender name="hibernate" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/hibernate.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param
-				name="ConversionPattern"
-				value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
+			<param name="ConversionPattern" value="%d %-5p [%t]:%c{5}.%M()-%L : %m%n" />
 		</layout>
 	</appender>
 
 	<!-- Application Loggers -->
-	<category name="com.giong">
-		<priority value="debug" />
+	<logger name="com.giong">
+		<level value="debug" />
 		<appender-ref ref="lv-app" />
-	</category>
+	</logger>
 
 	<!-- 3rdparty Loggers -->
-	<category name="org.springframework">
-		<priority value="info" />
+	<!-- Spring Logger -->
+	<logger name="org.springframework.beans">
+		<level value="warn" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.springframework.beans">
-		<priority value="debug" />
+	<logger name="org.springframework.binding">
+		<level value="debug" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.springframework.security">
-		<priority value="debug" />
+	<logger name="org.springframework.jdbc">
+		<level value="warn" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.springframework.beans.CachedIntrospectionResults">
-		<priority value="debug" />
+	<logger name="org.springframework.transaction">
+		<level value="warn" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.springframework.jdbc.core">
-		<priority value="debug" />
+	<logger name="org.springframework.orm">
+		<level value="warn" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.springframework.transaction.support.TransactionSynchronizationManager">
-		<priority value="debug" />
+	<logger name="org.springframework.web">
+		<level value="debug" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="com.github.dandelion">
-		<priority value="debug" />
+	<logger name="org.springframework.webflow">
+		<level value="debug" />
 		<appender-ref ref="spring" />
-	</category>
+	</logger>
 
-	<category name="org.hibernate">
-		<priority value="debug" />
+	<logger name="org.springframework.security">
+		<level value="debug" />
+		<appender-ref ref="spring" />
+	</logger>
+
+	<!-- Hibernate Logger -->
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="trace" />
 		<appender-ref ref="hibernate" />
-	</category>
+	</logger>
+
+	<logger name="org.hibernate.type" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="hibernate" />
+	</logger>
+
+	<logger name="org.hibernate.type.descriptor.sql" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="hibernate" />
+	</logger>
+
+	<logger name="org.hibernate.tool.hbm2ddl" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="hibernate" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

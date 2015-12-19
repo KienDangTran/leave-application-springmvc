@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
 
 
@@ -41,7 +42,7 @@ public class MtEmployee extends AbstractEntity {
 	@Column(name = "PHONE_NO")
 	private String phoneNo;
 	
-	private String status;
+	private String status = MasterDataStatus.ACTIVE;
 	
 	public MtEmployee() {
 	}
