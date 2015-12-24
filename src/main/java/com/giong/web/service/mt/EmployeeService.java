@@ -38,4 +38,8 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 		return newEmp;
 	}
 	
+	public void removeEmployee(MtEmployee currentEmployee) {
+		this.repository.delete(currentEmployee);
+	}
+	
 }

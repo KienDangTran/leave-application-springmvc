@@ -3,37 +3,42 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <spring:message code="employee_code" var="employee_code" />
 <spring:message code="employee_name" var="employee_name" />
+<spring:message code="select" var="select" />
 
 <spring:url value="/employee/add" var="addEmpUrl" />
+<spring:url value="/employee/removeBatchEmployee" var="removeBatchEmployeeUrl" />
 
 <h1>
-	<spring:message code="employee_summary" />
+	<spring:message code="employee_management" />
 </h1>
 
-<div class="table-responsive panel">
-	<div class="panel-heading">
-		<div class="btn-group">
-			<a class="btn btn-lg btn-primary" href="${addEmpUrl}">
-				<span class="glyphicon glyphicon-plus-sign" />
-				<spring:message code="add" />
-			</a>
-		</div>
-	</div>
-	<div class="panel-body">
-		<datatables:table id="empTbl" data="${allEmployees}" row="employee" cssClass="table table-striped">
-			<datatables:column title="${employee_code}" property="employeeCode" cssCellClass="identity" />
-			<datatables:column title="${employee_name}" property="employeeName" />
-			<datatables:column sortable="false" filterable="false">
-				<a href="<spring:url value="/employee/${employee.employeeCode}" />">
-					<span class="glyphicon glyphicon-eye-open"></span>
-					<spring:message code="view_details" />
-				</a>
-			</datatables:column>
-		</datatables:table>
-	</div>
+<%-- <form:form method="POST" action="${removeBatchEmployeeUrl}"> --%>
+<datatables:table id="empTbl" data="${allEmployees}" row="employee" cssClass="table table-striped">
+	<datatables:column title="${employee_code}" cssCellClass="identity">
+		<a href="<spring:url value="/employee/${employee.employeeCode}" />"> ${employee.employeeCode} </a>
+	</datatables:column>
+	<datatables:column title="${employee_name}" property="employeeName" />
+	<datatables:column sortable="false" filterable="false" title="${select}">
+		<%-- 				<spring:bind path="selected"> --%>
+		<%-- 				<form:checkbox path="selected" cssClass="row-selecting" /> --%>
+		<%-- 				</spring:bind> --%>
+		<input type="checkbox" class="row-selecting">
+	</datatables:column>
+</datatables:table>
+<%-- </form:form> --%>
+<br/>
+<div class="btn-group btn-group-justified">
+	<a class="btn btn-lg btn-primary" href="${addEmpUrl}">
+		<span class="glyphicon glyphicon-plus-sign"></span>
+		<spring:message code="add" />
+	</a>
+	<a class="btn btn-lg btn-primary" href="${removeBatchEmployeeUrl}">
+		<span class="glyphicon glyphicon-trash"></span>
+		<spring:message code="remove_all" />
+	</a>
 </div>
-
 

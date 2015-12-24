@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
 
 
@@ -33,7 +34,8 @@ public class MtRole extends AbstractEntity {
 	@Column(name = "ROLE_DESC")
 	private String roleDesc;
 	
-	private String status;
+	@Column(name = "STATUS")
+	private String status = MasterDataStatus.ACTIVE;
 	
 	//bi-directional many-to-many association to MtPermission
 	@ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)

@@ -5,23 +5,22 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
-@Component("emailValidator")
+@Component
 public class EmailValidator {
-
-	private Pattern pattern;
+	
+	private final Pattern pattern;
 	private Matcher matcher;
-
-	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
+	
+	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
 	public EmailValidator() {
-		pattern = Pattern.compile(EMAIL_PATTERN);
+		this.pattern = Pattern.compile(EmailValidator.EMAIL_PATTERN);
 	}
-
+	
 	public boolean valid(final String email) {
-
-		matcher = pattern.matcher(email);
-		return matcher.matches();
-
+		
+		this.matcher = this.pattern.matcher(email);
+		return this.matcher.matches();
+		
 	}
 }

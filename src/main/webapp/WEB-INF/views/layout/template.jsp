@@ -25,7 +25,7 @@
 	<div id="header" class="container-fluid">
 		<tiles:insertAttribute name="header" />
 	</div>
-	<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="250">
+	<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="100">
 		<tiles:insertAttribute name="menu" />
 	</nav>
 	<div id="content" class="container">

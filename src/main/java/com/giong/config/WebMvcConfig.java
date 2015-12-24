@@ -2,6 +2,7 @@ package com.giong.config;
 
 import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -66,7 +67,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean(name = "messageSource")
-	public ReloadableResourceBundleMessageSource messageSource() {
+	public MessageSource messageSource() {
 		final ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
 		resource.setBasename("classpath:i18n/messages");
 		resource.setDefaultEncoding("UTF-8");

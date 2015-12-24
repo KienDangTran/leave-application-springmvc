@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
 
 @Entity
@@ -39,6 +40,9 @@ public class MtIdScheme extends AbstractEntity {
 	
 	@Column(name = "LAST_GEN_NO")
 	private long lastGenNo = 0;
+	
+	@Column(name = "STATUS")
+	private String status = MasterDataStatus.ACTIVE;
 	
 	/* CONTRUCTORS */
 	public MtIdScheme() {
@@ -99,6 +103,14 @@ public class MtIdScheme extends AbstractEntity {
 	
 	public void setLastGenNo(long lastGenNo) {
 		this.lastGenNo = lastGenNo;
+	}
+	
+	public String getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

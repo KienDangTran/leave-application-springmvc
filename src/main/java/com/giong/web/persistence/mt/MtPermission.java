@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
 
 
@@ -32,7 +33,8 @@ public class MtPermission extends AbstractEntity implements GrantedAuthority, Co
 	@Column(name = "PERMISSION_DESC")
 	private String permissionDesc;
 	
-	private String status;
+	@Column(name = "STATUS")
+	private String status = MasterDataStatus.ACTIVE;
 	
 	//bi-directional many-to-many association to MtRole
 	@ManyToMany(mappedBy = "mtPermissions", cascade = { CascadeType.REFRESH })

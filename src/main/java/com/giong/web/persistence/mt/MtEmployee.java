@@ -33,6 +33,9 @@ public class MtEmployee extends AbstractEntity {
 	@Column(name = "DATE_OF_BIRTH")
 	private Date dateOfBirth;
 	
+	@Column(name = "SEX")
+	private String sex;
+	
 	@Column(name = "EMAIL")
 	private String email;
 	
@@ -42,6 +45,7 @@ public class MtEmployee extends AbstractEntity {
 	@Column(name = "PHONE_NO")
 	private String phoneNo;
 	
+	@Column(name = "STATUS")
 	private String status = MasterDataStatus.ACTIVE;
 	
 	public MtEmployee() {
@@ -74,6 +78,14 @@ public class MtEmployee extends AbstractEntity {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSex() {
+		return this.sex;
+	}
+	
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	
 	public String getEmployeeName() {

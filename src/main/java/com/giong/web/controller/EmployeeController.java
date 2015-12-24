@@ -69,6 +69,19 @@ public class EmployeeController extends BaseController {
 		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	
+	@RequestMapping(value = "/employee/removeCurrentEmployee", method = RequestMethod.GET)
+	public String removeCurrentEmployee(Model model) {
+		if (this.currentEmployee != null) {
+			this.service.removeEmployee(this.currentEmployee);
+		}
+		return "redirect:/employee";
+	}
+	
+	@RequestMapping(value = "/employee/removeBatchEmployee", method = RequestMethod.GET)
+	public String removeBatchEmployee(Model model) {
+		return "redirect:/employee";
+	}
+	
 	/*
 	 * GETTER & SETTER
 	 */
@@ -89,5 +102,4 @@ public class EmployeeController extends BaseController {
 	public void setCurrentEmployee(MtEmployee currentEmployee) {
 		this.currentEmployee = currentEmployee;
 	}
-	
 }

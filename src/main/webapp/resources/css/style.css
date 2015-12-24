@@ -10,6 +10,13 @@ body {
 	background: #fff url(../images/body-bg.png) 0 0 repeat;
 }
 
+h1 {
+	text-align: center;
+	font-weight: 800;
+	font-size: 3em;
+	color: #646464;
+}
+
 /* -------------------------------- 
 
 Main Components 
@@ -36,3 +43,22 @@ Main Components
 	color: darkgreen;
 }
 
+.radio-group {
+	padding: 6px 12px;
+}
+
+.row-selecting {
+	height: 18px;
+	width: 18px;
+}
+
+.panel-heading h3 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: normal;
+	width: 50%;
+	font-weight: bolder;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}

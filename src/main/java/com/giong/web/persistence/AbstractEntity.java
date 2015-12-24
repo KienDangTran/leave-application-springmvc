@@ -3,6 +3,8 @@ package com.giong.web.persistence;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import javax.persistence.Transient;
+
 public abstract class AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -10,6 +12,17 @@ public abstract class AbstractEntity implements Serializable {
 	}
 	
 	public AbstractEntity() {
+	}
+	
+	@Transient
+	protected boolean selected;
+	
+	public boolean isSelected() {
+		return this.selected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 	
 	public abstract Object getPk();

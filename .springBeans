@@ -7,15 +7,15 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>java:com.giong.config.WebMvcConfig</config>
-		<config>java:com.giong.config.JpaConfig</config>
-		<config>java:com.giong.config.SecurityConfig</config>
-		<config>java:com.giong.config.WebFlowConfig</config>
-		<config>java:com.giong.util.MessageUtil</config>
 		<config>java:com.giong.web.validator.EmailValidator</config>
 		<config>java:com.giong.web.validator.EmployeeValidator</config>
+		<config>java:com.giong.config.JpaConfig</config>
+		<config>java:com.giong.util.MessageUtil</config>
+		<config>java:com.giong.config.WebFlowConfig</config>
+		<config>java:com.giong.config.WebMvcConfig</config>
 	</configs>
 	<autoconfigs>
+		<config>java:com.giong.config.SecurityConfig</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
