@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="giong" tagdir="/WEB-INF/tags"%>
 
 <spring:message code="employee_code" var="employee_code" />
 <spring:message code="employee_name" var="employee_name" />
@@ -150,7 +151,8 @@
 		<span class="glyphicon glyphicon-circle-arrow-left"></span>
 		<spring:message code="back" />
 	</a>
-	<a class="btn btn-lg btn-primary" ${editable ? 'hidden' : ''} href="${removeCurrentEmployeeUlr}">
+	<a class="btn btn-lg btn-primary modal-input-href" onclick="openModal(this); return false;" rel="#confimationModal" rev="${removeCurrentEmployeeUlr}" ${editable ? 'hidden' : ''}
+		data-toggle="modal" data-target="#confimationModal">
 		<span class="glyphicon glyphicon-trash"></span>
 		<spring:message code="remove" />
 	</a>

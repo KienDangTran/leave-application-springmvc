@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.giong</groupId>
@@ -49,9 +46,9 @@
 		<jstl-version>1.2</jstl-version>
 		<dandelion.datatables-version>1.1.0</dandelion.datatables-version>
 		<dandelion-version>1.1.1</dandelion-version>
-		<webjars.jquery.ui-version>1.11.4</webjars.jquery.ui-version>
-		<webjars.bootstrap-version>3.3.6</webjars.bootstrap-version>
-		<webjars.jquery-version>2.1.4</webjars.jquery-version>
+		<jquery.ui-version>1.11.4</jquery.ui-version>
+		<bootstrap-version>3.3.6</bootstrap-version>
+		<jquery-version>2.1.4</jquery-version>
 		<cobertura-version>2.7</cobertura-version>
 
 	</properties>
@@ -250,17 +247,17 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>${webjars.bootstrap-version}</version>
+			<version>${bootstrap-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery-ui</artifactId>
-			<version>${webjars.jquery.ui-version}</version>
+			<version>${jquery.ui-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>${webjars.jquery-version}</version>
+			<version>${jquery-version}</version>
 		</dependency>
 		<!-- END Webjar -->
 
