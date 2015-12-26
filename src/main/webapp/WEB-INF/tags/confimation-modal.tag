@@ -20,10 +20,12 @@
 			<div class="modal-footer">
 				<div class="btn-group btn-group-justified">
 					<a class="btn btn-lg btn-primary" href="#" data-dismiss="modal">
-						<span><spring:message code="no" /></span>
+						<span class="glyphicon glyphicon-remove-sign"></span>
+						<spring:message code="no" />
 					</a>
 					<a class="btn btn-lg btn-primary btn-modal-yes" href="#">
-						<span><spring:message code="yes" /></span>
+						<span class="glyphicon glyphicon-ok-sign"></span>
+						<spring:message code="yes" />
 					</a>
 				</div>
 			</div>

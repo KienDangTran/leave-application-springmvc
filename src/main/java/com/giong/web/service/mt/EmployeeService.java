@@ -29,7 +29,7 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 	}
 	
 	public void saveEmployee(MtEmployee employee) {
-		this.repository.save(employee);
+		this.repository.saveAndFlush(employee);
 	}
 	
 	public MtEmployee createEmptyEmployee() {
