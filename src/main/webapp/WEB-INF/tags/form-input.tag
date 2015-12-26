@@ -17,7 +17,7 @@
 
 <spring:bind path="${path}">
 	<div class="form-group ${empty colClass ? 'col-md-6' : colClass} ${status.error ? 'has-error' : ''}">
-		<label class="control-label ${required}" for="${id}">${label} </label>
+		<label class="control-label  ${required ? 'required' : ''}" for="${id}">${label} </label>
 		<c:choose>
 			<c:when test="${type eq 'date'}">
 				<i>(eg. 01/31/1970)</i>
