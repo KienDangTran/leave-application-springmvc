@@ -25,7 +25,7 @@
 	<div id="header" class="container-fluid">
 		<tiles:insertAttribute name="header" />
 	</div>
-	<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="50">
+	<nav class="navbar navbar-inverse" data-spy="affix">
 		<tiles:insertAttribute name="menu" />
 	</nav>
 	<div id="content" class="container">
@@ -42,7 +42,6 @@
 	<script src="${pageContext.request.contextPath}/webjars/jquery-ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.tools.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.maskedinput-1.3.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		jQuery.noConflict();
 	</script>

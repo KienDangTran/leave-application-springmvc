@@ -62,3 +62,7 @@ Main Components
 	margin-top: 10px;
 	margin-bottom: 5px;
 }
+
+.ui-datepicker-title select {
+	color: cornflowerblue;
+}

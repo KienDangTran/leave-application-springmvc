@@ -20,7 +20,7 @@
 		<label class="control-label  ${required ? 'required' : ''}" for="${id}">${label} </label>
 		<c:choose>
 			<c:when test="${type eq 'date'}">
-				<i>(eg. 01/31/1970)</i>
+				<i>(yyyy-mm-dd)</i>
 				<form:input type="text" cssClass="form-control datepicker ${inputClass}" id="${id}" placeholder="${placeholder}" path="${path}" readonly="${readonly}" required="${required}" />
 			</c:when>
 

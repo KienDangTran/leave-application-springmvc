@@ -1,16 +1,15 @@
-package com.giong.util;
+package com.giong.web.service;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class MessageUtil implements MessageSourceAware {
-	
-	public static MessageUtil instance() {
-		return new MessageUtil();
-	}
+@Service
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class MessageService implements MessageSourceAware {
 	
 	private MessageSource messageSource;
 	

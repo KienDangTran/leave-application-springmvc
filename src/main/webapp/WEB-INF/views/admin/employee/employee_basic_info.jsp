@@ -24,7 +24,7 @@
 				<spring:message code="basic_information" />
 			</h3>
 			<div class="btn-group pull-right">
-				<button type="button" class="btn-lg btn-primary allow-edit" ${editable ? 'hidden' : ''}>
+				<button type="button" class="btn-lg btn-primary" ${readonly ? '' : 'hidden'} onclick="enableEditing(currentEmployee)">
 					<span class="glyphicon glyphicon-edit"></span>
 					<spring:message code="edit" />
 				</button>
@@ -33,22 +33,19 @@
 		</div>
 
 		<div class="panel-body">
-
-			<giong:form-notification successMessages="${messages}" status="${status}" />
-
 			<!-- Row 1 -->
 			<div class="row">
 				<!-- Employee Code -->
 				<giong:form-input label="${i18n_employee_code}" path="employeeCode" identity="true" readonly="true" required="true" placeholder="${i18n_employee_code}" />
 
 				<!-- Employee Name -->
-				<giong:form-input label="${i18n_employee_name}" path="employeeName" required="true" readonly="${!editable}" placeholder="${i18n_employee_name}" />
+				<giong:form-input label="${i18n_employee_name}" path="employeeName" required="true" readonly="${readonly}" placeholder="${i18n_employee_name}" />
 			</div>
 
 			<!-- Row 2 -->
 			<div class="row">
 				<!-- Date of Birth -->
-				<giong:form-input path="dateOfBirth" type="date" readonly="${!editable}" required="true" label="${i18n_date_of_birth}" placeholder="${i18n_date_of_birth}" />
+				<giong:form-input path="dateOfBirth" type="date" readonly="${readonly}" required="true" label="${i18n_date_of_birth}" placeholder="${i18n_date_of_birth}" />
 
 				<!-- Sex -->
 				<spring:bind path="sex">
@@ -58,15 +55,15 @@
 						</label>
 						<div class="radio-group">
 							<label class="radio-inline">
-								<form:radiobutton path="sex" value="M" disabled="${editable ? 'false' : 'true'}" />
+								<form:radiobutton path="sex" value="M" disabled="${readonly}" />
 								<spring:message code="male" />
 							</label>
 							<label class="radio-inline">
-								<form:radiobutton path="sex" value="F" disabled="${editable ? 'false' : 'true'}" />
+								<form:radiobutton path="sex" value="F" disabled="${readonly}" />
 								<spring:message code="female" />
 							</label>
 							<label class="radio-inline">
-								<form:radiobutton path="sex" value="O" disabled="${editable ? 'false' : 'true'}" />
+								<form:radiobutton path="sex" value="O" disabled="${readonly}" />
 								<spring:message code="other" />
 							</label>
 							<form:errors path="sex" cssClass="control-label" />
@@ -78,10 +75,10 @@
 			<!-- Row 3 -->
 			<div class="row">
 				<!-- Email -->
-				<giong:form-input label="${i18n_email}" path="email" type="email" placeholder="${i18n_email}" readonly="${!editable}" />
+				<giong:form-input label="${i18n_email}" path="email" type="email" placeholder="${i18n_email}" readonly="${readonly}" />
 
 				<!-- Phone -->
-				<giong:form-input label="${i18n_phone}" path="phoneNo" type="tel" placeholder="${i18n_phone}" />
+				<giong:form-input label="${i18n_phone}" path="phoneNo" type="tel" placeholder="${i18n_phone}" readonly="${readonly}" />
 			</div>
 
 			<!-- Row 4 -->
@@ -94,11 +91,11 @@
 						</label>
 						<div class="radio-group">
 							<label class="radio-inline">
-								<form:radiobutton path="status" value="A" disabled="${editable ? 'false' : 'true'}" />
+								<form:radiobutton path="status" value="A" disabled="${readonly}" />
 								<spring:message code="active" />
 							</label>
 							<label class="radio-inline">
-								<form:radiobutton path="status" value="S" disabled="${editable ? 'false' : 'true'}" />
+								<form:radiobutton path="status" value="S" disabled="${readonly}" />
 								<spring:message code="suspended" />
 							</label>
 							<form:errors path="status" cssClass="control-label" />
@@ -109,11 +106,11 @@
 
 			<!-- Buttons group -->
 			<div class="btn-group col-md-12">
-				<button type="submit" class="btn-lg btn-primary pull-right" ${editable ? '' : 'hidden'}>
+				<button type="submit" class="btn-lg btn-primary pull-right" ${readonly ? 'hidden' : ''}>
 					<span class="glyphicon glyphicon-floppy-save"></span>
 					<spring:message code="save" />
 				</button>
-				<button type="reset" id="btnCancel" class="btn-lg btn-primary pull-right btn-frm-ctrl" ${editable ? '' : 'hidden'}>
+				<button type="reset" id="btnCancel" class="btn-lg btn-primary pull-right" ${readonly ? 'hidden' : ''} onclick="disableEditing(currentEmployee)">
 					<span class="glyphicon glyphicon-floppy-remove"></span>
 					<spring:message code="cancel" />
 				</button>
@@ -128,7 +125,7 @@
 		<spring:message code="back" />
 	</a>
 	<a class="btn btn-lg btn-primary modal-input-href" onclick="openConfirmationModal(this); return false;" rel="#confimationModal" rev="${removeCurrentEmployeeUlr}"
-		${editable ? 'hidden' : ''} data-toggle="modal" data-target="#confimationModal">
+		data-toggle="modal" data-target="#confimationModal">
 		<span class="glyphicon glyphicon-trash"></span>
 		<spring:message code="remove" />
 	</a>

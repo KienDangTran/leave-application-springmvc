@@ -8,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.giong.web.persistence.JsonResponse;
 import com.giong.web.persistence.mt.MtEmployee;
 import com.giong.web.service.mt.EmployeeService;
 import com.giong.web.validator.EmployeeValidator;
@@ -42,30 +43,31 @@ public class EmployeeController extends BaseController {
 	public String viewEmployeeDetails(@PathVariable("employeeCode") String employeeCode, Model model) {
 		this.currentEmployee = this.service.findEmployeeyCode(employeeCode);
 		model.addAttribute("currentEmployee", this.currentEmployee);
-		model.addAttribute("editable", false);
+		model.addAttribute("readonly", true);
 		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	
 	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.POST)
-	public String updateEmployee(@ModelAttribute("currentEmployee") @Validated MtEmployee currentEmp, BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-		
+	public @ResponseBody JsonResponse updateEmployee(@Validated @RequestBody MtEmployee currentEmp, BindingResult result) {
+		final JsonResponse jsonResponse = new JsonResponse();
 		if (result.hasErrors()) {
 			this.logger.error(result.getAllErrors().toString());
-			model.addAttribute("editable", true);
-			return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
+			jsonResponse.setResult(result.getAllErrors());
 		}
-		
-		model.addAttribute("editable", false);
-		this.currentEmployee = currentEmp;
-		this.service.saveEmployee(this.currentEmployee);
-		return "redirect:/employee/" + this.currentEmployee.getEmployeeCode();
+		else {
+			this.currentEmployee = currentEmp;
+			this.service.saveEmployee(this.currentEmployee);
+			jsonResponse.setStatus(JsonResponse.RESPONSE_STATUS_SUCCESS);
+			jsonResponse.setResult(this.messageService.getMessage("msg.employee_has_been_updated_successfully"));
+		}
+		return jsonResponse;
 	}
 	
 	@RequestMapping(value = "/employee/add", method = RequestMethod.GET)
 	public String addEmployee(Model model) {
 		this.currentEmployee = this.service.createEmptyEmployee();
 		model.addAttribute("currentEmployee", this.currentEmployee);
-		model.addAttribute("editable", true);
+		model.addAttribute("readonly", false);
 		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	
