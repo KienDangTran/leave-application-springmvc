@@ -16,21 +16,17 @@
 	<spring:message code="employee_management" />
 </h1>
 
-<%-- <form:form method="POST" action="${removeBatchEmployeeUrl}"> --%>
 <datatables:table id="empTbl" data="${allEmployees}" row="employee" cssClass="table table-striped">
 	<datatables:column title="${employee_code}" cssCellClass="identity">
 		<a href="<spring:url value="/employee/${employee.employeeCode}" />"> ${employee.employeeCode} </a>
 	</datatables:column>
 	<datatables:column title="${employee_name}" property="employeeName" />
 	<datatables:column sortable="false" filterable="false" title="${select}">
-		<%-- 				<spring:bind path="selected"> --%>
-		<%-- 				<form:checkbox path="selected" cssClass="row-selecting" /> --%>
-		<%-- 				</spring:bind> --%>
-		<input type="checkbox" class="row-selecting">
+		<input type="checkbox" class="row-selecting" name="check${employee.employeeCode}" value="${employee.employeeCode}">
 	</datatables:column>
 </datatables:table>
-<%-- </form:form> --%>
-<br/>
+
+<br />
 <div class="btn-group btn-group-justified">
 	<a class="btn btn-lg btn-primary" href="${addEmpUrl}">
 		<span class="glyphicon glyphicon-plus-sign"></span>
@@ -41,4 +37,3 @@
 		<spring:message code="remove_all" />
 	</a>
 </div>
-

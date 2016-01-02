@@ -33,76 +33,78 @@
 		</div>
 
 		<div class="panel-body">
-			<!-- Row 1 -->
-			<div class="row">
-				<!-- Employee Code -->
-				<giong:form-input label="${i18n_employee_code}" path="employeeCode" identity="true" readonly="true" required="true" placeholder="${i18n_employee_code}" />
+			<fieldset>
+				<!-- Row 1 -->
+				<div class="row">
+					<!-- Employee Code -->
+					<giong:form-input label="${i18n_employee_code}" path="employeeCode" identity="true" readonly="true" required="true" placeholder="${i18n_employee_code}" />
 
-				<!-- Employee Name -->
-				<giong:form-input label="${i18n_employee_name}" path="employeeName" required="true" readonly="${readonly}" placeholder="${i18n_employee_name}" />
-			</div>
+					<!-- Employee Name -->
+					<giong:form-input label="${i18n_employee_name}" path="employeeName" required="true" readonly="${readonly}" placeholder="${i18n_employee_name}" />
+				</div>
 
-			<!-- Row 2 -->
-			<div class="row">
-				<!-- Date of Birth -->
-				<giong:form-input path="dateOfBirth" type="date" readonly="${readonly}" required="true" label="${i18n_date_of_birth}" placeholder="${i18n_date_of_birth}" />
+				<!-- Row 2 -->
+				<div class="row">
+					<!-- Date of Birth -->
+					<giong:form-input path="dateOfBirth" type="date" readonly="${readonly}" required="true" label="${i18n_date_of_birth}" placeholder="${i18n_date_of_birth}" />
 
-				<!-- Sex -->
-				<spring:bind path="sex">
-					<div class="col-md-6 form-group ${status.error ? 'has-error' : ''}">
-						<label class="control-label required">
-							<spring:message code="sex" />
-						</label>
-						<div class="radio-group">
-							<label class="radio-inline">
-								<form:radiobutton path="sex" value="M" disabled="${readonly}" />
-								<spring:message code="male" />
+					<!-- Sex -->
+					<spring:bind path="sex">
+						<div class="col-md-6 form-group ${status.error ? 'has-error' : ''}">
+							<label class="control-label required">
+								<spring:message code="sex" />
 							</label>
-							<label class="radio-inline">
-								<form:radiobutton path="sex" value="F" disabled="${readonly}" />
-								<spring:message code="female" />
-							</label>
-							<label class="radio-inline">
-								<form:radiobutton path="sex" value="O" disabled="${readonly}" />
-								<spring:message code="other" />
-							</label>
-							<form:errors path="sex" cssClass="control-label" />
+							<div class="radio-group">
+								<label class="radio-inline">
+									<form:radiobutton path="sex" value="M" disabled="${readonly}" />
+									<spring:message code="male" />
+								</label>
+								<label class="radio-inline">
+									<form:radiobutton path="sex" value="F" disabled="${readonly}" />
+									<spring:message code="female" />
+								</label>
+								<label class="radio-inline">
+									<form:radiobutton path="sex" value="O" disabled="${readonly}" />
+									<spring:message code="other" />
+								</label>
+								<form:errors path="sex" cssClass="control-label" />
+							</div>
 						</div>
-					</div>
-				</spring:bind>
-			</div>
+					</spring:bind>
+				</div>
 
-			<!-- Row 3 -->
-			<div class="row">
-				<!-- Email -->
-				<giong:form-input label="${i18n_email}" path="email" type="email" placeholder="${i18n_email}" readonly="${readonly}" />
+				<!-- Row 3 -->
+				<div class="row">
+					<!-- Email -->
+					<giong:form-input label="${i18n_email}" path="email" type="email" placeholder="${i18n_email}" readonly="${readonly}" />
 
-				<!-- Phone -->
-				<giong:form-input label="${i18n_phone}" path="phoneNo" type="tel" placeholder="${i18n_phone}" readonly="${readonly}" />
-			</div>
+					<!-- Phone -->
+					<giong:form-input label="${i18n_phone}" path="phoneNo" type="tel" placeholder="${i18n_phone}" readonly="${readonly}" />
+				</div>
 
-			<!-- Row 4 -->
-			<div class="row">
-				<!-- Status -->
-				<spring:bind path="status">
-					<div class="col-md-6 form-group ${status.error ? 'has-error' : ''}">
-						<label class="control-label">
-							<spring:message code="status" />
-						</label>
-						<div class="radio-group">
-							<label class="radio-inline">
-								<form:radiobutton path="status" value="A" disabled="${readonly}" />
-								<spring:message code="active" />
+				<!-- Row 4 -->
+				<div class="row">
+					<!-- Status -->
+					<spring:bind path="status">
+						<div class="col-md-6 form-group ${status.error ? 'has-error' : ''}">
+							<label class="control-label">
+								<spring:message code="status" />
 							</label>
-							<label class="radio-inline">
-								<form:radiobutton path="status" value="S" disabled="${readonly}" />
-								<spring:message code="suspended" />
-							</label>
-							<form:errors path="status" cssClass="control-label" />
+							<div class="radio-group">
+								<label class="radio-inline">
+									<form:radiobutton path="status" value="A" disabled="${readonly}" />
+									<spring:message code="active" />
+								</label>
+								<label class="radio-inline">
+									<form:radiobutton path="status" value="S" disabled="${readonly}" />
+									<spring:message code="suspended" />
+								</label>
+								<form:errors path="status" cssClass="control-label" />
+							</div>
 						</div>
-					</div>
-				</spring:bind>
-			</div>
+					</spring:bind>
+				</div>
+			</fieldset>
 
 			<!-- Buttons group -->
 			<div class="btn-group col-md-12">

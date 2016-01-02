@@ -35,11 +35,14 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 	public MtEmployee createEmptyEmployee() {
 		final MtEmployee newEmp = new MtEmployee();
 		newEmp.setEmployeeCode(this.schemeService.generateNextId(Scheme.EMPLOYEE));
+		newEmp.setPersisted(false);
 		return newEmp;
 	}
 	
 	public void removeEmployee(MtEmployee currentEmployee) {
-		this.repository.delete(currentEmployee);
+		if (currentEmployee.isPersisted()) {
+			this.repository.delete(currentEmployee);
+		}
 	}
 	
 }

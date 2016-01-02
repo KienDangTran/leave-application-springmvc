@@ -1,74 +1,71 @@
 $(document).ready(function() {
-	$(".navbar").attr("data-offset-top", $("#header").height());
 
-	$(".datepicker").datepicker({
-	    dateFormat : "yy-mm-dd",
-	    startDate : "-3d",
-	    changeMonth : true,
-	    changeYear : true,
-	});
+	$("form").submit(function(e) {
+		e.preventDefault();
+		var frm = $(this);
+		if (!validateForm(frm))
+			return;
 
-	$(".row-selecting").click(function() {
-		var $this = $(this);
-		var id = $(this).attr("id")
-		if ($this.is(":checked")) {
-			console.log("checked " + id);
-		} else {
-			console.log("unchecked " + id);
+		if (frm.hasClass("ajax-frm")) {
+			var data = {};
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			// Gather Data also remove undefined
+			// keys(buttons)
+			$.each(this, function(i, v) {
+				var input = $(v);
+				if (input.attr("type") == "radio" || input.attr("type") == "checkbox") {
+					if (input.prop("checked")) {
+						data[input.attr("name")] = input.val();
+					}
+				} else
+					data[input.attr("name")] = input.val();
+				delete data["undefined"];
+			});
+
+			$.ajax({
+			    contentType : 'application/json; charset=utf-8',
+			    type : frm.attr("method"),
+			    dataType : "json",
+			    data : JSON.stringify(data),
+			    url : frm.attr("action"),
+			    beforeSend : function(xhr) {
+				    xhr.setRequestHeader(header, token);
+			    },
+			    success : function(response) {
+				    if (response.status == "SUCCESS") {
+					    result = "<div class='frm-notification alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong><span class='glyphicon glyphicon-ok-sign'></span> ";
+					    result += response.result;
+					    result += "</strong></div>";
+					    disableEditing(frm);
+				    } else {
+					    result = "<div class='frm-notification alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>";
+					    for (i = 0; i < response.result.length; i++) {
+						    result += "<span class='control-label glyphicon glyphicon-exclamation-sign'></span> " + response.result[i].code + "<br/>";
+						    fieldName = response.result[i].field;
+						    ele = $("#" + frm.attr("id") + " .form-group [name=" + fieldName + "]");
+						    ele.parent().addClass("has-error")
+					    }
+					    result += "</strong></div>";
+					    enableEditing(frm);
+				    }
+				    frm.find("fieldset").append(result);
+			    },
+			    error : function(err) {
+				    frm.html(err.responseText);
+			    }
+			});
 		}
 	});
 
-	$(".ajax-frm").submit(function(e) {
-		e.preventDefault();
-		var data = {};
-		var frm = $(this);
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-
-		// Gather Data also remove undefined keys(buttons)
-		$.each(this, function(i, v) {
-			var input = $(v);
-			if (input.attr("type") == "radio" || input.attr("type") == "checkbox") {
-				if (input.prop("checked")) {
-					data[input.attr("name")] = input.val();
-				}
-			} else
-				data[input.attr("name")] = input.val();
-			delete data["undefined"];
-		});
-
-		$.ajax({
-		    contentType : 'application/json; charset=utf-8',
-		    type : frm.attr("method"),
-		    dataType : "json",
-		    data : JSON.stringify(data),
-		    url : frm.attr("action"),
-		    beforeSend : function(xhr) {
-			    xhr.setRequestHeader(header, token);
-		    },
-		    success : function(response) {
-			    if (response.status == "SUCCESS") {
-				    result = "<div class='frm-notification alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>";
-				    result += response.result;
-				    result += "</strong></div>";
-				    disableEditing(frm);
-			    } else {
-				    result = "<div class='frm-notification alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>";
-				    for (i = 0; i < response.result.length; i++) {
-					    result += "<span class='control-label'>&#8226; " + response.result[i].code + "</span><br/>";
-					    fieldName = response.result[i].field;
-					    ele = $("#" + frm.attr("id") + " .form-group [name=" + fieldName + "]");
-					    ele.parent().addClass("has-error")
-				    }
-				    result += "</strong></div>";
-				    enableEditing(frm);
-			    }
-			    frm.append(result);
-		    },
-		    error : function(err) {
-			    frm.html(err.responseText);
-		    }
-		});
+	$(".datepicker").datepicker({
+	    autoclose : true,
+	    dateFormat : "yy-mm-dd",
+	    changeMonth : true,
+	    changeYear : true,
+	    yearRange : "1925:2050",
+	    enableOnReadonly : false
 	});
 
 	if (!$(".datepicker").prop("readonly")) {
@@ -78,6 +75,44 @@ $(document).ready(function() {
 		$(".datepicker").datepicker("disable");
 	}
 });
+
+$(".navbar").attr("data-offset-top", $("#header").height());
+
+function validateForm(frmSelector) {
+	var isValid = true;
+	var errors = {};
+
+	// validate date input
+	$(".datepicker").each(function() {
+		isValid = validateDate($(this));
+		if (!isValid) {
+			fieldName = $(this).attr("name");
+			ele = $("#" + frmSelector.attr("id") + " .form-group [name=" + fieldName + "]");
+			ele.parent().addClass("has-error");
+			errors[$(this).parent().find("label").text()] = "Date format is invalid (yyyy-mm-dd)";
+		}
+	});
+
+	// if form has error, displays it
+	if (!isValid) {
+		result = "<div class='frm-notification alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>";
+		for ( var err in errors) {
+			result += "<span class='control-label'>&#8226;  " + err + ": " + errors[err] + "</span><br/>";
+		}
+		result += "</strong></div>";
+		frmSelector.find("fieldset").append(result);
+	}
+	return isValid;
+}
+
+function validateDate(dateSelector) {
+	try {
+		$.datepicker.parseDate('yy-mm-dd', $(dateSelector).val());
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
 
 function openConfirmationModal(selector) {
 	var trigger = jQuery(selector);
@@ -131,8 +166,9 @@ function disableEditing(formSelector) {
 	$(formSelector).find(":button").show();
 	$(formSelector).find(":submit").hide();
 	$(formSelector).find(":reset").hide();
-	$(formSelector).find(".datepicker").datepicker("disable");
 	$(formSelector).find(".frm-notification").hide();
+	$(formSelector).find("label.error").hide();
+	$(formSelector).find(".datepicker").datepicker("disable");
 	$(formSelector).find(".form-group").removeClass("has-error");
 	$(formSelector).find(".identity").attr("readonly", true);
 }

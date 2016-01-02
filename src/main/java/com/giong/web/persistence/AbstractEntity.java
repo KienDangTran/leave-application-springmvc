@@ -3,8 +3,14 @@ package com.giong.web.persistence;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 
+@MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -17,6 +23,31 @@ public abstract class AbstractEntity implements Serializable {
 	@Transient
 	protected boolean selected;
 	
+	@Transient
+	protected boolean persisted;
+	
+	/*
+	 * 
+	 */
+	@PostLoad
+	protected void postLoad() {
+		this.persisted = true;
+	}
+	
+	@PrePersist
+	protected void prePersist() {
+		this.persisted = true;
+	}
+	
+	
+	@PreUpdate
+	protected void preUpdate() {
+		this.persisted = true;
+	}
+	
+	/*
+	 * Getter & Setter
+	 */
 	public boolean isSelected() {
 		return this.selected;
 	}
@@ -25,6 +56,15 @@ public abstract class AbstractEntity implements Serializable {
 		this.selected = selected;
 	}
 	
+	public boolean isPersisted() {
+		return this.persisted;
+	}
+	
+	public void setPersisted(boolean persisted) {
+		this.persisted = persisted;
+	}
+	
+	@Id
 	public abstract Object getPk();
 	
 	@Override
@@ -36,7 +76,7 @@ public abstract class AbstractEntity implements Serializable {
 	
 	
 	/**
-	 * 
+	 * AbtractPk
 	 */
 	public abstract class AbtractPk implements Serializable {
 		

@@ -18,6 +18,15 @@
 <link href="${pageContext.request.contextPath}/webjars/jquery-ui/1.11.4/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
 
+<script src="${pageContext.request.contextPath}/webjars/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/webjars/jquery-ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.tools.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js" type="text/javascript"></script>
+
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 
@@ -37,14 +46,5 @@
 	<div id="footer" class="container">
 		<tiles:insertAttribute name="footer" />
 	</div>
-
-	<script src="${pageContext.request.contextPath}/webjars/jquery/2.1.4/jquery.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/webjars/jquery-ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.tools.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		jQuery.noConflict();
-	</script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js" type="text/javascript"></script>
 </body>
 </html>

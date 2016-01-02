@@ -58,7 +58,7 @@ public class EmployeeController extends BaseController {
 			this.currentEmployee = currentEmp;
 			this.service.saveEmployee(this.currentEmployee);
 			jsonResponse.setStatus(JsonResponse.RESPONSE_STATUS_SUCCESS);
-			jsonResponse.setResult(this.messageService.getMessage("msg.employee_has_been_updated_successfully"));
+			jsonResponse.setResult(this.messageService.getMessage("msg.all_info_have_been_saved_successfully"));
 		}
 		return jsonResponse;
 	}
@@ -67,7 +67,6 @@ public class EmployeeController extends BaseController {
 	public String addEmployee(Model model) {
 		this.currentEmployee = this.service.createEmptyEmployee();
 		model.addAttribute("currentEmployee", this.currentEmployee);
-		model.addAttribute("readonly", false);
 		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
 	}
 	
