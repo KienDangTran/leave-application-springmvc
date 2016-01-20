@@ -59,6 +59,8 @@ $(document).ready(function() {
 		}
 	});
 
+	$(".navbar").attr("data-offset-top", $("#header").height());
+
 	$(".datepicker").datepicker({
 	    autoclose : true,
 	    dateFormat : "yy-mm-dd",
@@ -75,8 +77,6 @@ $(document).ready(function() {
 		$(".datepicker").datepicker("disable");
 	}
 });
-
-$(".navbar").attr("data-offset-top", $("#header").height());
 
 function validateForm(frmSelector) {
 	var isValid = true;

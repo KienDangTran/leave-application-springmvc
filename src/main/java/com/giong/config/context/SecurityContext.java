@@ -1,4 +1,4 @@
-package com.giong.config;
+package com.giong.config.context;
 
 import javax.sql.DataSource;
 
@@ -24,7 +24,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityContext extends WebSecurityConfigurerAdapter {
 	private final int TOKEN_VALIDITY_SECONDS = 60 * 60 * 24;
 	private final String APPLICATION_SECURITY_KEY = "giong.security-key";
 	

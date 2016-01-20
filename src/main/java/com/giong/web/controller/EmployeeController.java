@@ -22,8 +22,8 @@ import com.giong.web.validator.EmployeeValidator;
 @Controller
 public class EmployeeController extends BaseController {
 	
-	private static final String EMPLOYEE_VIEW_NAME = "employee";
-	private static final String EMPLOYEE_DETAILS_VIEW_NAME = "employeeDetails";
+	public static final String EMPLOYEE_VIEW_NAME = "employee";
+	public static final String EMPLOYEE_DETAILS_VIEW_NAME = "employeeDetails";
 	
 	@Autowired
 	private EmployeeService service;

@@ -10,10 +10,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.giong.config.JpaConfig;
-import com.giong.config.SecurityConfig;
-import com.giong.config.WebFlowConfig;
-import com.giong.config.WebMvcConfig;
+import com.giong.config.context.ApplicationContext;
 import com.github.dandelion.core.web.DandelionFilter;
 import com.github.dandelion.core.web.DandelionServlet;
 
@@ -23,7 +20,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// Register the Root application context
 		final AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(WebMvcConfig.class, JpaConfig.class, WebFlowConfig.class, SecurityConfig.class);
+		rootContext.register(ApplicationContext.class);
 		
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 		
@@ -32,7 +29,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		dandelionFilter.addMappingForUrlPatterns(null, false, "/*");
 		
 		// Register the Spring dispatcher servlet
-		final ServletRegistration.Dynamic dispatcher = servletContext.addServlet("spring", new DispatcherServlet(new AnnotationConfigWebApplicationContext()));
+		final AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
+		dispatcherContext.register(ApplicationContext.class);
+		final ServletRegistration.Dynamic dispatcher = servletContext.addServlet("springDispatcher", new DispatcherServlet(dispatcherContext));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/");
 		
@@ -40,6 +39,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		final ServletRegistration.Dynamic dandelionServlet = servletContext.addServlet("dandelion", new DandelionServlet());
 		dandelionServlet.setLoadOnStartup(2);
 		dandelionServlet.addMapping("/dandelion-assets/*");
+		
+		rootContext.setServletContext(servletContext);
+		rootContext.refresh();
 	}
 	
 }

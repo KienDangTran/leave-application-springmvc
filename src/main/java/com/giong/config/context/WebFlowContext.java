@@ -1,4 +1,4 @@
-package com.giong.config;
+package com.giong.config.context;
 
 import java.util.Arrays;
 
@@ -15,10 +15,10 @@ import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
 @Configuration
-public class WebFlowConfig extends AbstractFlowConfiguration {
+public class WebFlowContext extends AbstractFlowConfiguration {
 	
 	@Autowired
-	private WebMvcConfig webMvcConfig;
+	private WebMvcContext webMvcContext;
 	
 	@Bean(name = "flowExecutor")
 	public FlowExecutor flowExecutor() {
@@ -38,7 +38,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 	@Bean
 	public MvcViewFactoryCreator mvcViewFactoryCreator() {
 		final MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
-		factoryCreator.setViewResolvers(Arrays.<ViewResolver> asList(this.webMvcConfig.viewResolver()));
+		factoryCreator.setViewResolvers(Arrays.<ViewResolver> asList(this.webMvcContext.viewResolver()));
 		factoryCreator.setUseSpringBeanBinding(true);
 		return factoryCreator;
 	}

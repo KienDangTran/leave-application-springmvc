@@ -1,4 +1,4 @@
-package com.giong.config;
+package com.giong.config.tiles;
 
 import java.util.HashMap;
 import java.util.Map;

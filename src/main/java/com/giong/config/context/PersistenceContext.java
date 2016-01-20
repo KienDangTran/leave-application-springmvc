@@ -1,4 +1,4 @@
-package com.giong.config;
+package com.giong.config.context;
 
 import java.util.Properties;
 
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = { "com.giong.web.persistence" })
 @EnableJpaRepositories(basePackages = { "com.giong.web.repository" })
 @PropertySource("classpath:application.properties")
-public class JpaConfig {
+public class PersistenceContext {
 	
 	private final String MODEL_PACKAGES_TO_SCAN = "com.giong.web.persistence";
 	private final String DRIVER_CLASS_NAME = "driverClassName";

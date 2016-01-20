@@ -1,31 +1,27 @@
-package com.giong.config;
+package com.giong.config.context;
 
-import java.util.Locale;
-
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import com.giong.config.tiles.TilesConfig;
+
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "com.giong.web" })
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+@ComponentScan(basePackages = { "com.giong.web.controller, com.giong.web.validator" })
+public class WebMvcContext extends WebMvcConfigurerAdapter {
 	
 	private static final String LOCALE_PARAM = "locale";
 	
@@ -66,25 +62,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return tilesConfigurer;
 	}
 	
-	@Bean(name = "messageSource")
-	public MessageSource messageSource() {
-		final ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
-		resource.setBasename("classpath:i18n/messages");
-		resource.setDefaultEncoding("UTF-8");
-		return resource;
-	}
-	
-	@Bean(name = "localeResolver")
-	public LocaleResolver localeResolver() {
-		final SessionLocaleResolver resolver = new SessionLocaleResolver();
-		resolver.setDefaultLocale(Locale.US);
-		return resolver;
-	}
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		final LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-		interceptor.setParamName(WebMvcConfig.LOCALE_PARAM);
+		interceptor.setParamName(WebMvcContext.LOCALE_PARAM);
 		registry.addInterceptor(interceptor);
 	}
 	
