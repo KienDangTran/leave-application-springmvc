@@ -1,5 +1,6 @@
 package com.giong.web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MessageService implements MessageSourceAware {
 	
+	@Autowired
 	private MessageSource messageSource;
 	
 	@Override
@@ -23,7 +25,7 @@ public class MessageService implements MessageSourceAware {
 		return msg;
 	}
 	
-	public String getMessage(String code) {
+	public String getMessages(String code) {
 		return this.getMessages(code, new Object[] {});
 	}
 }

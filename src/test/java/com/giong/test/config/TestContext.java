@@ -1,4 +1,4 @@
-package com.giong.config;
+package com.giong.test.config;
 
 import org.mockito.Mockito;
 import org.springframework.context.MessageSource;

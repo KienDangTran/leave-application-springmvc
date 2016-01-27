@@ -15,7 +15,7 @@
 
 <spring:url value="/employee/${currentEmployee.employeeCode}" var="updateEmployeeUlr" />
 <spring:url value="/employee" var="employeeUlr" />
-<spring:url value="/employee/removeCurrentEmployee" var="removeCurrentEmployeeUlr" />
+<spring:url value="/employee/removeEmployee/${currentEmployee.employeeCode}" var="removeEmployeeUlr" />
 
 <form:form cssClass="ajax-frm" method="POST" modelAttribute="currentEmployee" action="${updateEmployeeUlr}">
 	<div class="panel panel-default">
@@ -126,7 +126,7 @@
 		<span class="glyphicon glyphicon-circle-arrow-left"></span>
 		<spring:message code="back" />
 	</a>
-	<a class="btn btn-lg btn-primary modal-input-href" onclick="openConfirmationModal(this); return false;" rel="#confimationModal" rev="${removeCurrentEmployeeUlr}"
+	<a class="btn btn-lg btn-primary modal-input-href" onclick="openConfirmationModal(this); return false;" rel="#confimationModal" rev="${removeEmployeeUlr}"
 		data-toggle="modal" data-target="#confimationModal">
 		<span class="glyphicon glyphicon-trash"></span>
 		<spring:message code="remove" />

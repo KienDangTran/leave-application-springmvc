@@ -8,6 +8,8 @@ import org.apache.tiles.Definition;
 import org.apache.tiles.definition.DefinitionsFactory;
 import org.apache.tiles.request.Request;
 
+import com.giong.constant.View;
+
 public class TilesConfig implements DefinitionsFactory {
 	
 	private static final Map<String, Definition> tilesDefinitions = new HashMap<String, Definition>();
@@ -22,9 +24,12 @@ public class TilesConfig implements DefinitionsFactory {
 	 * <code>Add Apache tiles definitions</code>
 	 */
 	public static void addDefinitions() {
-		TilesConfig.addDefaultLayoutDef("home", "Home", "/WEB-INF/views/home.jsp");
-		TilesConfig.addDefaultLayoutDef("employee", "Employee Management", "/WEB-INF/views/admin/employee/employee.jsp");
-		TilesConfig.addDefaultLayoutDef("employeeDetails", "Employee Details", "/WEB-INF/views/admin/employee/employee-details.jsp");
+		TilesConfig.addDefaultLayoutDef(View.ERROR_403.getViewName(), "Access is Denied", View.ERROR_403.getViewUrl());
+		TilesConfig.addDefaultLayoutDef(View.ERROR_404.getViewName(), "Page not found", View.ERROR_404.getViewUrl());
+		TilesConfig.addDefaultLayoutDef(View.ERROR.getViewName(), "Internal Server Error", View.ERROR.getViewUrl());
+		TilesConfig.addDefaultLayoutDef(View.HOME.getViewName(), "Home", View.HOME.getViewUrl());
+		TilesConfig.addDefaultLayoutDef(View.EMPLOYEE_SUMMARY.getViewName(), "Employee Summary", View.EMPLOYEE_SUMMARY.getViewUrl());
+		TilesConfig.addDefaultLayoutDef(View.EMPLOYEE_DETAIL.getViewName(), "Employee Details", View.EMPLOYEE_DETAIL.getViewUrl());
 	}
 	
 	/**

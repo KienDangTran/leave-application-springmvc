@@ -1,5 +1,7 @@
 package com.giong.config.context;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.giong.config.tiles.TilesConfig;
+import com.giong.constant.View;
 
 @Configuration
 @EnableWebMvc
@@ -69,12 +73,23 @@ public class WebMvcContext extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(interceptor);
 	}
 	
-	//	@Bean(name = "simpleMappingExceptionResolver")
-	//	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-	//		final SimpleMappingExceptionResolver exResolver = new SimpleMappingExceptionResolver();
-	//		final Properties mappings = new Properties();
-	//		mappings.put("org.springframework.dao.DataAccessException", "error");
-	//		exResolver.setExceptionMappings(mappings);
-	//		return exResolver;
-	//	}
+	@Bean(name = "simpleMappingExceptionResolver")
+	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+		final SimpleMappingExceptionResolver exResolver = new SimpleMappingExceptionResolver();
+		
+		final Properties exMappings = new Properties();
+		exMappings.put("org.springframework.security.access.AccessDeniedException", View.ERROR_403.getViewName());
+		exMappings.put("com.giong.exception.NotFoundException", View.ERROR_404.getViewName());
+		exMappings.put("java.lang.Exception", View.ERROR.getViewName());
+		exMappings.put("java.lang.RuntimeException", View.ERROR.getViewName());
+		exResolver.setExceptionMappings(exMappings);
+		
+		final Properties statusCodes = new Properties();
+		statusCodes.put(View.ERROR_403.getViewName(), "403");
+		statusCodes.put(View.ERROR_404.getViewName(), "404");
+		statusCodes.put(View.ERROR.getViewName(), "500");
+		exResolver.setStatusCodes(statusCodes);
+		
+		return exResolver;
+	}
 }

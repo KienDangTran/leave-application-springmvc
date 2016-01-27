@@ -1,7 +1,5 @@
 package com.giong.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.giong.constant.RequestURL;
+import com.giong.constant.View;
+import com.giong.exception.NotFoundException;
 import com.giong.web.persistence.JsonResponse;
 import com.giong.web.persistence.mt.MtEmployee;
 import com.giong.web.service.mt.EmployeeService;
@@ -22,65 +24,55 @@ import com.giong.web.validator.EmployeeValidator;
 @Controller
 public class EmployeeController extends BaseController {
 	
-	public static final String EMPLOYEE_VIEW_NAME = "employee";
-	public static final String EMPLOYEE_DETAILS_VIEW_NAME = "employeeDetails";
-	
 	@Autowired
-	private EmployeeService service;
+	private EmployeeService employeeService;
 	@Autowired
-	private EmployeeValidator validator;
-	private List<MtEmployee> allEmployees;
-	private MtEmployee currentEmployee;
+	private EmployeeValidator employeeValidator;
 	
-	@RequestMapping(value = "/employee", method = RequestMethod.GET)
+	@RequestMapping(value = RequestURL.EMPLOYEE_SUMMARY, method = RequestMethod.GET)
 	protected String getAllEmployee(Model model) throws Exception {
-		this.allEmployees = this.service.getAllEmployee();
-		model.addAttribute("allEmployees", this.allEmployees);
-		return EmployeeController.EMPLOYEE_VIEW_NAME;
+		model.addAttribute("allEmployees", this.employeeService.getAllEmployee());
+		return View.EMPLOYEE_SUMMARY.getViewName();
 	}
 	
-	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.GET)
+	@RequestMapping(value = RequestURL.EMPLOYEE_DETAIL, method = RequestMethod.GET)
 	public String viewEmployeeDetails(@PathVariable("employeeCode") String employeeCode, Model model) {
-		this.currentEmployee = this.service.findEmployeeyCode(employeeCode);
-		model.addAttribute("currentEmployee", this.currentEmployee);
+		final MtEmployee currentEmployee = this.employeeService.findEmployeeyByCode(employeeCode);
+		if (currentEmployee == null) throw new NotFoundException(this.messageService.getMessages("err.employee_is_not_found", employeeCode));
+		model.addAttribute("currentEmployee", currentEmployee);
 		model.addAttribute("readonly", true);
-		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
+		return View.EMPLOYEE_DETAIL.getViewName();
 	}
 	
-	@RequestMapping(value = "/employee/{employeeCode}", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse updateEmployee(@Validated @RequestBody MtEmployee currentEmp, BindingResult result) {
+	@RequestMapping(value = RequestURL.EMPLOYEE_DETAIL, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse saveOrUpdateEmployee(@Validated @RequestBody MtEmployee currentEmployee, BindingResult result) {
 		final JsonResponse jsonResponse = new JsonResponse();
 		if (result.hasErrors()) {
-			this.logger.error(result.getAllErrors().toString());
 			jsonResponse.setResult(result.getAllErrors());
 		}
 		else {
-			this.currentEmployee = currentEmp;
-			this.service.saveEmployee(this.currentEmployee);
+			this.employeeService.saveOrUpdateEmployee(currentEmployee);
 			jsonResponse.setStatus(JsonResponse.RESPONSE_STATUS_SUCCESS);
-			jsonResponse.setResult(this.messageService.getMessage("msg.all_info_have_been_saved_successfully"));
+			jsonResponse.setResult(this.messageService.getMessages("msg.all_info_have_been_saved_successfully"));
 		}
 		return jsonResponse;
 	}
 	
-	@RequestMapping(value = "/employee/add", method = RequestMethod.GET)
+	@RequestMapping(value = RequestURL.EMPLOYEE_ADD, method = RequestMethod.GET)
 	public String addEmployee(Model model) {
-		this.currentEmployee = this.service.createEmptyEmployee();
-		model.addAttribute("currentEmployee", this.currentEmployee);
-		return EmployeeController.EMPLOYEE_DETAILS_VIEW_NAME;
+		model.addAttribute("currentEmployee", this.employeeService.createEmptyEmployee());
+		return View.EMPLOYEE_DETAIL.getViewName();
 	}
 	
-	@RequestMapping(value = "/employee/removeCurrentEmployee", method = RequestMethod.GET)
-	public String removeCurrentEmployee(Model model) {
-		if (this.currentEmployee != null) {
-			this.service.removeEmployee(this.currentEmployee);
-		}
-		return "redirect:/employee";
+	@RequestMapping(value = RequestURL.EMPLOYEE_REMOVE, method = RequestMethod.GET)
+	public String removeEmployee(@PathVariable("employeeCode") String employeeCode, RedirectAttributes redirectAttributes) {
+		this.employeeService.removeEmployee(employeeCode);
+		return "redirect:/" + View.EMPLOYEE_SUMMARY.getViewName();
 	}
 	
-	@RequestMapping(value = "/employee/removeBatchEmployee", method = RequestMethod.GET)
-	public String removeBatchEmployee(Model model) {
-		return "redirect:/employee";
+	@RequestMapping(value = RequestURL.EMPLOYEE_REMOVE_BATCH, method = RequestMethod.GET)
+	public String removeBatchEmployees(Model model) {
+		return "redirect:/" + View.EMPLOYEE_SUMMARY.getViewName();
 	}
 	
 	/*
@@ -88,19 +80,11 @@ public class EmployeeController extends BaseController {
 	 */
 	@Override
 	String getViewName() {
-		return EmployeeController.EMPLOYEE_VIEW_NAME;
+		return View.EMPLOYEE_SUMMARY.getViewName();
 	}
 	
 	@Override
 	Validator getValidator() {
-		return this.validator;
-	}
-	
-	public MtEmployee getCurrentEmployee() {
-		return this.currentEmployee;
-	}
-	
-	public void setCurrentEmployee(MtEmployee currentEmployee) {
-		this.currentEmployee = currentEmployee;
+		return this.employeeValidator;
 	}
 }

@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.giong.constant.Scheme;
+import com.giong.exception.NotFoundException;
 import com.giong.web.persistence.mt.MtEmployee;
 import com.giong.web.repository.mt.EmployeeRepository;
 import com.giong.web.service.BaseService;
@@ -24,11 +26,11 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 		return this.repository.findAll();
 	}
 	
-	public MtEmployee findEmployeeyCode(String employeeCode) {
+	public MtEmployee findEmployeeyByCode(String employeeCode) {
 		return this.repository.findOne(employeeCode);
 	}
 	
-	public void saveEmployee(MtEmployee employee) {
+	public void saveOrUpdateEmployee(MtEmployee employee) {
 		this.repository.saveAndFlush(employee);
 	}
 	
@@ -39,10 +41,11 @@ public class EmployeeService extends BaseService<MtEmployee, String, EmployeeRep
 		return newEmp;
 	}
 	
-	public void removeEmployee(MtEmployee currentEmployee) {
-		if (currentEmployee.isPersisted()) {
-			this.repository.delete(currentEmployee);
-		}
+	public void removeEmployee(String employeeCode) throws NotFoundException {
+		if (StringUtils.isEmpty(employeeCode)) return;
+		final MtEmployee employee = this.findEmployeeyByCode(employeeCode);
+		if (employee == null) throw new NotFoundException("Employee " + employeeCode + " is not found!");
+		this.repository.delete(employee);
 	}
 	
 }

@@ -7,13 +7,13 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>java:com.giong.config.context.ApplicationContext</config>
+		<config>java:com.giong.test.config.context.ApplicationContext</config>
 		<config>java:com.giong.web.validator.EmailValidator</config>
 		<config>java:com.giong.web.validator.EmployeeValidator</config>
-		<config>java:com.giong.config.context.PersistenceContext</config>
-		<config>java:com.giong.config.context.SecurityContext</config>
-		<config>java:com.giong.config.context.WebFlowContext</config>
-		<config>java:com.giong.config.context.WebMvcContext</config>
+		<config>java:com.giong.test.config.context.PersistenceContext</config>
+		<config>java:com.giong.test.config.context.SecurityContext</config>
+		<config>java:com.giong.test.config.context.WebFlowContext</config>
+		<config>java:com.giong.test.config.context.WebMvcContext</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
