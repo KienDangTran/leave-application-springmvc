@@ -46,7 +46,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @ContextConfiguration(classes = { TestContext.class })
 @WebAppConfiguration
 @WithMockUser(authorities = { "VIEW_EMP", "EXE_EMP" })
-public class EmployeeControllerUnitTesting {
+public class EmployeeControllerUnitTest {
 	
 	private MockMvc mockMvc;
 	
@@ -68,10 +68,11 @@ public class EmployeeControllerUnitTesting {
 	public void setup() {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
-									.defaultRequest(MockMvcRequestBuilders.get(RequestURL.HOME).with(SecurityMockMvcRequestPostProcessors.testSecurityContext()))
-									.alwaysDo(MockMvcResultHandlers.print())
-									.addFilters(this.springSecurityFilterChain)
-									.build();
+										.defaultRequest(MockMvcRequestBuilders.get(RequestURL.EMPLOYEE_SUMMARY)
+																				.with(SecurityMockMvcRequestPostProcessors.testSecurityContext()))
+										.alwaysDo(MockMvcResultHandlers.print())
+										.addFilters(this.springSecurityFilterChain)
+										.build();
 		// @formatter:on
 		final ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
 		this.validator = vf.getValidator();
