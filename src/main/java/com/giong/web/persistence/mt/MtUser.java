@@ -1,31 +1,17 @@
 package com.giong.web.persistence.mt;
 
+import com.giong.web.persistence.AbstractEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.giong.web.persistence.AbstractEntity;
-
-
 /**
  * The persistent class for the MT_USER database table.
- * 
  */
 @Entity
 @Table(name = "MT_USER")
@@ -34,41 +20,43 @@ public class MtUser extends AbstractEntity implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "USER_ID")
+	@Column(name = "user_id")
 	private String userId;
 
-	@Column(name = "ACCOUNT_NON_EXPIRED")
+	@Column(name = "account_non_expired")
 	private boolean accountNonExpired;
 
-	@Column(name = "ACCOUNT_NON_LOCKED")
+	@Column(name = "account_non_locked")
 	private boolean accountNonLocked;
 
-	@Column(name = "CREDENTIALS_NON_EXPIRED")
+	@Column(name = "credentials_non_expired")
 	private boolean credentialsNonExpired;
 
-	@Column(name = "ENABLED")
+	@Column(name = "enabled")
 	private boolean enabled;
 
-	@Column(name = "PASSWORD")
+	@Column(name = "password")
 	private String password;
 
-	@Column(name = "THEME")
+	@Column(name = "theme")
 	private String theme;
 
-	@Column(name = "USERNAME")
+	@Column(name = "username")
 	private String username;
 
 	//uni-directional one-to-one association to MtEmployee
 	@OneToOne(cascade = { CascadeType.REFRESH })
-	@JoinColumn(name = "EMPLOYEE_CODE")
+	@JoinColumn(name = "employee_code")
 	private MtEmployee mtEmployee;
 
 	//bi-directional many-to-many association to MtRole
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MT_USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_CODE") })
+	@JoinTable(name = "MT_USER_ROLE", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+		@JoinColumn(name = "role_code") })
 	private List<MtRole> mtRoles;
 
-	public MtUser() {}
+	public MtUser() {
+	}
 
 	@Override
 	public Object getPk() {
@@ -163,7 +151,8 @@ public class MtUser extends AbstractEntity implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (this.mtRoles == null || this.mtRoles.isEmpty()) return Collections.emptySet();
+		if (this.mtRoles == null || this.mtRoles.isEmpty())
+			return Collections.emptySet();
 		final TreeSet<MtPermission> authorities = new TreeSet<MtPermission>();
 		for (final MtRole role : this.mtRoles)
 			authorities.addAll(role.getMtPermissions());
@@ -187,12 +176,14 @@ public class MtUser extends AbstractEntity implements UserDetails {
 
 			boolean first = true;
 			for (final GrantedAuthority auth : this.getAuthorities()) {
-				if (!first) sb.append(",");
+				if (!first)
+					sb.append(",");
 				first = false;
 
 				sb.append(auth.getAuthority());
 			}
-		} else sb.append("Not granted any permissions");
+		} else
+			sb.append("Not granted any permissions");
 
 		return sb.toString();
 	}
@@ -204,7 +195,8 @@ public class MtUser extends AbstractEntity implements UserDetails {
 	 */
 	@Override
 	public boolean equals(Object rhs) {
-		if (rhs instanceof MtUser) return this.username.equals(((MtUser) rhs).username);
+		if (rhs instanceof MtUser)
+			return this.username.equals(((MtUser) rhs).username);
 		return false;
 	}
 

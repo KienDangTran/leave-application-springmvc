@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MessageService implements MessageSourceAware {
-	
+
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
-	
+
 	public String getMessages(String code, Object... param) {
 		final String msg = this.messageSource.getMessage(code, param, LocaleContextHolder.getLocale());
 		return msg;
 	}
-	
+
 	public String getMessages(String code) {
 		return this.getMessages(code, new Object[] {});
 	}

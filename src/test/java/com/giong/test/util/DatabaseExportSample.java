@@ -1,13 +1,13 @@
 package com.giong.test.util;
 
-import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class DatabaseExportSample {
 
@@ -20,7 +20,9 @@ public class DatabaseExportSample {
 	public static void main(String[] args) throws Exception {
 		// database connection
 		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
-		Connection jdbcConnection = DriverManager.getConnection(DatabaseExportSample.JDBC_URL, DatabaseExportSample.JDBC_USER, DatabaseExportSample.JDBC_PASSWD);
+		Connection jdbcConnection = DriverManager
+			.getConnection(DatabaseExportSample.JDBC_URL, DatabaseExportSample.JDBC_USER,
+				DatabaseExportSample.JDBC_PASSWD);
 		IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
 		// partial database export
@@ -31,7 +33,8 @@ public class DatabaseExportSample {
 
 		// full database export
 		IDataSet fullDataSet = connection.createDataSet();
-		FlatXmlDataSet.write(fullDataSet, new FileOutputStream(DatabaseExportSample.EXPORT_PATH_PREFIX + DatabaseExportSample.EXPORT_FILE_NAME));
+		FlatXmlDataSet.write(fullDataSet,
+			new FileOutputStream(DatabaseExportSample.EXPORT_PATH_PREFIX + DatabaseExportSample.EXPORT_FILE_NAME));
 
 		// dependent tables database export: export table X and all tables that
 		// have a PK which is a FK on X, in the right order for insertion

@@ -1,25 +1,13 @@
 package com.giong.web.persistence.mt;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
 import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
 
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * The persistent class for the MT_ROLE database table.
- * 
  */
 @Entity
 @Table(name = "MT_ROLE")
@@ -28,25 +16,27 @@ public class MtRole extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ROLE_CODE")
+	@Column(name = "role_code")
 	private String roleCode;
 
-	@Column(name = "ROLE_DESC")
+	@Column(name = "role_desc")
 	private String roleDesc;
 
-	@Column(name = "STATUS")
+	@Column(name = "status")
 	private String status = MasterDataStatus.ACTIVE;
 
 	//bi-directional many-to-many association to MtPermission
 	@ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "MT_ROLE_PERMISSION_GRANTED", joinColumns = { @JoinColumn(name = "ROLE_CODE") }, inverseJoinColumns = { @JoinColumn(name = "PERMISSION_CODE") })
+	@JoinTable(name = "MT_ROLE_PERMISSION_GRANTED", joinColumns = {
+		@JoinColumn(name = "role_code") }, inverseJoinColumns = { @JoinColumn(name = "permission_code") })
 	private List<MtPermission> mtPermissions;
 
 	//bi-directional many-to-many association to MtUser
 	@ManyToMany(mappedBy = "mtRoles")
 	private List<MtUser> mtUsers;
 
-	public MtRole() {}
+	public MtRole() {
+	}
 
 	@Override
 	public Object getPk() {

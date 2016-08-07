@@ -1,24 +1,14 @@
 package com.giong.web.persistence.mt;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
-
 import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * The persistent class for the MT_PERMISSION database table.
- * 
  */
 @Entity
 @Table(name = "MT_PERMISSION")
@@ -27,20 +17,21 @@ public class MtPermission extends AbstractEntity implements GrantedAuthority, Co
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "PERMISSION_CODE")
+	@Column(name = "permission_code")
 	private String permissionCode;
 
-	@Column(name = "PERMISSION_DESC")
+	@Column(name = "permission_desc")
 	private String permissionDesc;
 
-	@Column(name = "STATUS")
+	@Column(name = "status")
 	private String status = MasterDataStatus.ACTIVE;
 
 	//bi-directional many-to-many association to MtRole
 	@ManyToMany(mappedBy = "mtPermissions", cascade = { CascadeType.REFRESH })
 	private List<MtRole> mtRoles;
 
-	public MtPermission() {}
+	public MtPermission() {
+	}
 
 	@Override
 	public Object getPk() {
@@ -90,9 +81,11 @@ public class MtPermission extends AbstractEntity implements GrantedAuthority, Co
 		// the set.
 		// If the authority is null, it is a custom authority and should precede
 		// others.
-		if (o.getAuthority() == null) return -1;
+		if (o.getAuthority() == null)
+			return -1;
 
-		if (this.getAuthority() == null) return 1;
+		if (this.getAuthority() == null)
+			return 1;
 
 		return this.getAuthority().compareTo(o.getAuthority());
 	}

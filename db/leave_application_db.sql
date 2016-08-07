@@ -1,109 +1,122 @@
-
-use leave_application_db;
+CREATE DATABASE leave_application_db;
+USE leave_application_db;
 /*-------------------------------------------------------------------- CREATE TABLE --------------------------------------------------------------*/
 
-create table if not exists `MT_ROLE` (
-    `ROLE_CODE` varchar(64) not null,
-    `ROLE_DESC` varchar(1000),
-    `STATUS` varchar(1) default 'A',
-    
-    primary key (`ROLE_CODE`)
-    
-)  engine = InnoDB;
+CREATE TABLE IF NOT EXISTS `MT_ROLE` (
+  `role_code` VARCHAR(64) NOT NULL,
+  `role_desc` VARCHAR(1000),
+  `status`    VARCHAR(1) DEFAULT 'A',
 
-create table if not exists `MT_PERMISSION` (
-	`PERMISSION_CODE` varchar(64),
-    `PERMISSION_DESC` varchar(1000),
-    `STATUS` varchar(1) default 'A',
-    
-    primary key (`PERMISSION_CODE`)
-    
-) engine = InnoDB;
+  PRIMARY KEY (`role_code`)
 
-create table if not exists `MT_ROLE_PERMISSION_GRANTED` (
-    `ROLE_CODE` varchar(64) not null,
-    `PERMISSION_CODE` varchar(64)  not null,
-    `STATUS` varchar(1) default 'A',
-    
-    primary key (`ROLE_CODE`, `PERMISSION_CODE`),
-    
-    constraint `FK_ROLE_PERMISSION_GRANTED_ROLE` foreign key (`ROLE_CODE`)
-        references `leave_application_db`.`MT_ROLE` (`ROLE_CODE`)
-        on delete restrict on update restrict,
-	
-    constraint `FK_ROLE_PERMISSION_GRANTED_PERMISSION` foreign key (`PERMISSION_CODE`)
-        references `leave_application_db`.`MT_PERMISSION` (`PERMISSION_CODE`)
-        on delete restrict on update restrict
-        
-) engine = InnoDB;
+)
+  ENGINE = InnoDB;
 
-create table if not exists `MT_EMPLOYEE` (
-    `EMPLOYEE_CODE` varchar(64) not null,
-    `EMPLOYEE_NAME` varchar(64) not null,
-    `DATE_OF_BIRTH` date,
-    `SEX` varchar(1),
-    `EMAIL` varchar(64),
-    `PHONE_NO` varchar(64),
-    `STATUS` varchar(1) default 'A',
-    
-    primary key (`EMPLOYEE_CODE`)
-    
-)  engine = InnoDB;
+CREATE TABLE IF NOT EXISTS `MT_PERMISSION` (
+  `permission_code` VARCHAR(64),
+  `permission_desc` VARCHAR(1000),
+  `status`          VARCHAR(1) DEFAULT 'A',
 
-create table if not exists `MT_USER` (
-	`USER_ID` varchar(64) not null,
-	`USERNAME` varchar(64) not null,
-	`PASSWORD` varchar(255) not null,
-    `EMPLOYEE_CODE` varchar(64) not null,
-    `THEME` varchar(32),
-    `ACCOUNT_NON_EXPIRED` bool default true,
-    `ACCOUNT_NON_LOCKED` bool default true,
-    `CREDENTIALS_NON_EXPIRED` bool default true,
-    `ENABLED` bool default true,
-	
-	primary key (`USER_ID`),
-    
-    constraint `FK_ROLE_EMPLOYEE` foreign key (`EMPLOYEE_CODE`)
-        references `leave_application_db`.`MT_EMPLOYEE` (`EMPLOYEE_CODE`)
-        on delete cascade on update restrict
-        
-) engine = InnoDB;
+  PRIMARY KEY (`permission_code`)
 
-create table if not exists `MT_USER_ROLE` (
-	`USER_ID` varchar(64) not null,
-	`ROLE_CODE` varchar(64) not null,
-    `STATUS` varchar(3) default 'A',
-    
-    primary key (`USER_ID`, `ROLE_CODE`),
-    
-    constraint `FK_USER_ROLE_USER` foreign key (`USER_ID`)
-        references `leave_application_db`.`MT_USER` (`USER_ID`)
-        on delete cascade on update restrict,
-        
-	constraint `FK_USER_ROLE_ROLE` foreign key (`ROLE_CODE`)
-        references `leave_application_db`.`MT_ROLE` (`ROLE_CODE`)
-        on delete cascade on update restrict
-        
-) engine = InnoDB;
+)
+  ENGINE = InnoDB;
 
-create table if not exists `persistent_logins` (
-	`USERNAME` varchar(64) not null,
-	`SERIES` varchar(64) not null,
-    `TOKEN` varchar(64) not null,
-    `LAST_USED` timestamp not null,
-    
-    primary key (`SERIES`)
-) engine = InnoDB;
+CREATE TABLE IF NOT EXISTS `MT_ROLE_PERMISSION_GRANTED` (
+  `role_code`       VARCHAR(64) NOT NULL,
+  `permission_code` VARCHAR(64) NOT NULL,
+  `status`          VARCHAR(1) DEFAULT 'A',
 
-create table if not exists `MT_ID_SCHEME` (
-	`SEQ_NO` int auto_increment not null,
-    `SCHEME_NAME` varchar(64) unique,
-    `PREFIX` varchar(8),
-    `SUFFIX`  varchar(8),
-    `LENGTH` int default 10,
-    `FILLED_CHAR` varchar(1) default '0',
-    `LAST_GEN_NO` bigint default 0,
-    `STATUS` varchar(1) default 'A',
-    
-    primary key(`SEQ_NO`)
-) engine = InnoDB;
+  PRIMARY KEY (`role_code`, `permission_code`),
+
+  CONSTRAINT `FK_ROLE_PERMISSION_GRANTED_ROLE` FOREIGN KEY (`role_code`)
+  REFERENCES `leave_application_db`.`MT_ROLE` (`role_code`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+
+  CONSTRAINT `FK_ROLE_PERMISSION_GRANTED_PERMISSION` FOREIGN KEY (`permission_code`)
+  REFERENCES `leave_application_db`.`MT_PERMISSION` (`permission_code`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
+
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `MT_EMPLOYEE` (
+  `employee_code` VARCHAR(64) NOT NULL,
+  `employee_name` VARCHAR(64) NOT NULL,
+  `date_of_birth` DATE,
+  `sex`           VARCHAR(1),
+  `email`         VARCHAR(64),
+  `phone_no`      VARCHAR(64),
+  `status`        VARCHAR(1) DEFAULT 'A',
+
+  PRIMARY KEY (`employee_code`)
+
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `MT_USER` (
+  `user_id`                 VARCHAR(64)  NOT NULL,
+  `username`                VARCHAR(64)  NOT NULL,
+  `password`                VARCHAR(255) NOT NULL,
+  `employee_code`           VARCHAR(64)  NOT NULL,
+  `theme`                   VARCHAR(32),
+  `account_non_expired`     BOOL DEFAULT TRUE,
+  `account_non_locked`      BOOL DEFAULT TRUE,
+  `credentials_non_expired` BOOL DEFAULT TRUE,
+  `enabled`                 BOOL DEFAULT TRUE,
+
+  PRIMARY KEY (`user_id`),
+
+  CONSTRAINT `FK_ROLE_EMPLOYEE` FOREIGN KEY (`employee_code`)
+  REFERENCES `leave_application_db`.`MT_EMPLOYEE` (`employee_code`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT
+
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `MT_USER_ROLE` (
+  `user_id`   VARCHAR(64) NOT NULL,
+  `role_code` VARCHAR(64) NOT NULL,
+  `status`    VARCHAR(3) DEFAULT 'A',
+
+  PRIMARY KEY (`user_id`, `role_code`),
+
+  CONSTRAINT `FK_USER_ROLE_USER` FOREIGN KEY (`user_id`)
+  REFERENCES `leave_application_db`.`MT_USER` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT,
+
+  CONSTRAINT `FK_USER_ROLE_ROLE` FOREIGN KEY (`role_code`)
+  REFERENCES `leave_application_db`.`MT_ROLE` (`role_code`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT
+
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `persistent_logins` (
+  `username`  VARCHAR(64) NOT NULL,
+  `series`    VARCHAR(64) NOT NULL,
+  `token`     VARCHAR(64) NOT NULL,
+  `last_used` TIMESTAMP   NOT NULL,
+
+  PRIMARY KEY (`series`)
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `MT_ID_SCHEME` (
+  `seq_no`      INT AUTO_INCREMENT NOT NULL,
+  `scheme_name` VARCHAR(64) UNIQUE,
+  `prefix`      VARCHAR(8),
+  `suffix`      VARCHAR(8),
+  `length`      INT        DEFAULT 10,
+  `filled_char` VARCHAR(1) DEFAULT '0',
+  `last_gen_no` BIGINT     DEFAULT 0,
+  `status`      VARCHAR(1) DEFAULT 'A',
+
+  PRIMARY KEY (`seq_no`)
+)
+  ENGINE = InnoDB;

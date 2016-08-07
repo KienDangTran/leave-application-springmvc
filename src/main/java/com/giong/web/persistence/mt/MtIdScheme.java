@@ -1,15 +1,9 @@
 package com.giong.web.persistence.mt;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
 import com.giong.constant.MasterDataStatus;
 import com.giong.web.persistence.AbstractEntity;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "MT_ID_SCHEME")
@@ -20,32 +14,33 @@ public class MtIdScheme extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "SEQ_NO")
+	@Column(name = "seq_no")
 	private int seq_no;
 
-	@Column(name = "SCHEME_NAME")
+	@Column(name = "scheme_name")
 	private String schemeName;
 
-	@Column(name = "PREFIX")
+	@Column(name = "prefix")
 	private String prefix;
 
-	@Column(name = "SUFFIX")
+	@Column(name = "suffix")
 	private String suffix;
 
-	@Column(name = "LENGTH")
+	@Column(name = "length")
 	private int length = 10;
 
-	@Column(name = "FILLED_CHAR")
+	@Column(name = "filled_char")
 	private String filledChar = "0";
 
-	@Column(name = "LAST_GEN_NO")
+	@Column(name = "last_gen_no")
 	private long lastGenNo = 0;
 
-	@Column(name = "STATUS")
+	@Column(name = "status")
 	private String status = MasterDataStatus.ACTIVE;
 
 	/* CONTRUCTORS */
-	public MtIdScheme() {}
+	public MtIdScheme() {
+	}
 
 	@Override
 	public Object getPk() {

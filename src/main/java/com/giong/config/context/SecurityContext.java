@@ -1,7 +1,5 @@
 package com.giong.config.context;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,75 +19,77 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class SecurityContext extends WebSecurityConfigurerAdapter {
 	private final int TOKEN_VALIDITY_SECONDS = 60 * 60 * 24;
 	private final String APPLICATION_SECURITY_KEY = "giong.security-key";
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncoder());
 	}
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**");
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
-		
-		// @formatter:off
+
 		http.authorizeRequests().anyRequest().authenticated()
 			.and()
-				.formLogin().loginProcessingUrl("/login")
-							.permitAll()
+			.formLogin().loginProcessingUrl("/login")
+			.permitAll()
 			.and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-						 .invalidateHttpSession(true)
-						 .deleteCookies("JSESSIONID", AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY)
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.invalidateHttpSession(true)
+			.deleteCookies("JSESSIONID", AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY)
 			.and()
-				.rememberMe().rememberMeServices(this.rememberMeServices())
-//			.and()
-//				.exceptionHandling().accessDeniedPage("/error/403.xhtml")
-		;		
-		// @formatter:on
+			.rememberMe().rememberMeServices(this.rememberMeServices())
+		//			.and()
+		//				.exceptionHandling().accessDeniedPage("/error/403.xhtml")
+		;
 	}
-	
+
 	@Override
 	@Bean(name = "authenticationManager")
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@Bean(name = "passwordEncoder")
 	public PasswordEncoder passwordEncoder() {
 		final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder;
 	}
-	
+
 	@Bean(name = "rememberMeServices")
 	public RememberMeServices rememberMeServices() {
-		
+
 		final JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
 		jdbcTokenRepository.setDataSource(this.dataSource);
-		
-		final PersistentTokenBasedRememberMeServices rememberMeServices = new PersistentTokenBasedRememberMeServices(this.APPLICATION_SECURITY_KEY, this.userDetailsService, jdbcTokenRepository);
+
+		final PersistentTokenBasedRememberMeServices rememberMeServices =
+			new PersistentTokenBasedRememberMeServices(this.APPLICATION_SECURITY_KEY, this.userDetailsService,
+				jdbcTokenRepository);
 		rememberMeServices.setTokenValiditySeconds(this.TOKEN_VALIDITY_SECONDS);
 		rememberMeServices.setAlwaysRemember(false);
-		
+
 		return rememberMeServices;
 	}
-	
+
 }
 
 /*                         														   _
